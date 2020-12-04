@@ -6,10 +6,8 @@ Want to lint some liquid?
 
 ## Installation
 
-Check out our [releases][releases] :)
-
-[releases]: https://github.com/Shopify/theme-check-vscode/releases
+Check out our [releases](https://github.com/Shopify/theme-check-vscode/releases) :)
 
 ## See also
 
-* [theme-check](/shopify/theme-check)
+* [theme-check](https://github.com/shopify/theme-check)
