@@ -46,19 +46,7 @@
           ".liquid"
         ]
       }
-    ],
-    "configuration": {
-      "type": "object",
-      "title": "Example configuration",
-      "properties": {
-        "languageServerExample.maxNumberOfProblems": {
-          "scope": "resource",
-          "type": "number",
-          "default": 100,
-          "description": "Controls the maximum number of problems produced by the server."
-        }
-      }
-    }
+    ]
   },
   "devDependencies": {
     "@types/vscode": "1.43.0",
