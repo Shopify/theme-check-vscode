@@ -42,6 +42,10 @@ async function activate(context) {
     documentSelector: [
       { scheme: 'file', language: 'liquid' },
       { scheme: 'file', language: 'plaintext' },
+      { scheme: 'file', language: 'html' },
+      { scheme: 'file', language: 'javascript' },
+      { scheme: 'file', language: 'css' },
+      { scheme: 'file', language: 'scss' },
     ],
   };
 

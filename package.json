@@ -37,19 +37,8 @@
   "dependencies": {
     "vscode-languageclient": "^6.1.3"
   },
-  "languages": [
-    {
-      "id": "liquid",
-      "extensions": [
-        ".liquid"
-      ],
-      "aliases": [
-        "Liquid"
-      ]
-    }
-  ],
   "activationEvents": [
-    "onLanguage:liquid"
+    "workspaceContains:**/*.liquid"
   ],
   "main": "./extension",
   "contributes": {
