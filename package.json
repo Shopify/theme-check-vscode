@@ -1,13 +1,32 @@
 {
   "name": "theme-check-vscode",
-  "description": "Liquid Linter VSCode extension by Shopify",
-  "author": "Shopify",
-  "license": "MIT",
-  "version": "0.0.1",
+  "author": {
+    "name": "charlespwd"
+  },
   "publisher": "Shopify",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "displayName": "Theme Check",
+  "description": "Linter for Shopify Liquid theme files",
+  "categories": [
+    "Programming Languages",
+    "Linters",
+    "Language Packs"
+  ],
+  "keywords": [
+    "liquid",
+    "shopify",
+    "theme-check"
+  ],
+  "preview": false,
+  "icon": "shopify_glyph.png",
+  "version": "0.1.0",
+  "homepage": "https://github.com/shopify/theme-check-vscode",
+  "bugs": {
+    "url": "https://github.com/shopify/theme-check-vscode/issues"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/shopify/theme-check-vscode"
+    "url": "https://github.com/shopify/theme-check-vscode.git"
   },
   "scripts": {
     "build": "vsce package"
