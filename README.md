@@ -1,13 +1,20 @@
-# Theme-Check VSCode Extension
+# Theme Check ✅ VSCode - A linter for Themes
 
-Want to lint some liquid?
+This is the official VSCode extension for [Theme Check][tc], the liquid linter for Shopify themes.
+
+_Disclaimer: This tool is not supported as part of the Partners program._
+
+## Requirements
+
+- [`theme-check`][tc] must be installed and available on your `$PATH`.
+- A UNIX based system (macOS, Linux)
+
+## Showcase
 
 ![](https://screenshot.click/04-49-aj5z0-x6wvr.png)
 
-## Installation
+## Configuration
 
-Check out our [releases](https://github.com/Shopify/theme-check-vscode/releases) :)
+- `"themeCheck.languageServerPath": string`, (optional) a path to the `theme-check-language-server` executable.
 
-## See also
-
-* [theme-check](https://github.com/shopify/theme-check)
+[tc]: //github.com/Shopify/theme-check
