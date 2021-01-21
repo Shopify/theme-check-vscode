@@ -1,6 +1,6 @@
-# Theme Check ✅ VSCode - A linter for Themes
+# Theme Check ✅ VS Code - A linter for Themes
 
-This is the official VSCode extension for [Theme Check][tc], the liquid linter for Shopify themes.
+This is the official VS Code extension for [Theme Check][tc], the liquid linter for Shopify themes.
 
 _Disclaimer: This tool is not supported as part of the Partners program._
 
