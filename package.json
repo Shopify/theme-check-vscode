@@ -19,7 +19,7 @@
   ],
   "preview": false,
   "icon": "shopify_glyph.png",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/shopify/theme-check-vscode",
   "bugs": {
     "url": "https://github.com/shopify/theme-check-vscode/issues"
@@ -38,7 +38,7 @@
     "vscode-languageclient": "^6.1.3"
   },
   "activationEvents": [
-    "workspaceContains:**/*.liquid"
+    "onStartupFinished"
   ],
   "main": "./extension",
   "contributes": {
