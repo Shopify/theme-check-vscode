@@ -19,7 +19,7 @@
   ],
   "preview": false,
   "icon": "shopify_glyph.png",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "homepage": "https://github.com/shopify/theme-check-vscode",
   "bugs": {
     "url": "https://github.com/shopify/theme-check-vscode/issues"
@@ -35,6 +35,7 @@
     "vscode": "^1.43.0"
   },
   "dependencies": {
+    "vsce": "^1.84.0",
     "vscode-languageclient": "^6.1.3"
   },
   "activationEvents": [
@@ -46,7 +47,10 @@
       "title": "Theme Check | Liquid Linter by Shopify",
       "properties": {
         "themeCheck.languageServerPath": {
-          "type": ["string", "null"],
+          "type": [
+            "string",
+            "null"
+          ],
           "default": null,
           "description": "Path to theme-check-language-server. Defaults to `which theme-check-default-server` if available on `$PATH`."
         }
