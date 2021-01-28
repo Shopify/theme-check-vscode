@@ -46,6 +46,7 @@ async function activate(context) {
       { scheme: 'file', language: 'javascript' },
       { scheme: 'file', language: 'css' },
       { scheme: 'file', language: 'scss' },
+      { scheme: 'file', language: 'json' },
     ],
   };
 
