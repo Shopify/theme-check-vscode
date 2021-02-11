@@ -1,7 +1,7 @@
 const path = require('path');
 const promisify = require('util').promisify;
 const exec = promisify(require('child_process').exec);
-const { workspace, window, ExtensionContext } = require('vscode');
+const vscode = require('vscode');
 
 const {
   LanguageClient,
@@ -13,7 +13,7 @@ const {
 let client;
 
 async function getThemeCheckExecutable() {
-  const configurationValue = workspace
+  const configurationValue = vscode.workspace
     .getConfiguration('themeCheck')
     .get('languageServerPath');
   if (configurationValue) return configurationValue;
@@ -24,13 +24,13 @@ async function getThemeCheckExecutable() {
     );
     return stdout.replace('\n', '');
   } catch (e) {
-    window.showWarningMessage(
+    vscode.window.showWarningMessage(
       `The 'theme-check-language-server' executable was not found on your $PATH. Was it installed? The path can also be changed via the "themeCheck.languageServerPath" setting.`,
     );
   }
 }
 
-async function activate(context) {
+async function startServer() {
   const serverModule = await getThemeCheckExecutable();
   if (!serverModule) return;
 
@@ -52,7 +52,7 @@ async function activate(context) {
 
   client = new LanguageClient(
     'theme-check',
-    'theme-check',
+    'Theme Check Language Server',
     serverOptions,
     clientOptions,
   );
@@ -60,11 +60,30 @@ async function activate(context) {
   client.start();
 }
 
+const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+
+async function stopServer() {
+  if (client) await Promise.race([client.stop(), sleep(1000)]);
+  client = undefined;
+}
+
+async function restartServer() {
+  if (client) await stopServer();
+  await startServer();
+}
+
+async function activate(context) {
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      'themeCheck.restart',
+      restartServer,
+    ),
+  );
+  await startServer();
+}
+
 function deactivate() {
-  if (!client) {
-    return undefined;
-  }
-  return client.stop();
+  return stopServer();
 }
 
 module.exports = {

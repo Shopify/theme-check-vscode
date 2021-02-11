@@ -43,6 +43,12 @@
   ],
   "main": "./extension",
   "contributes": {
+    "commands": [
+      {
+        "command": "themeCheck.restart",
+        "title": "Theme Check: Restart Server"
+      }
+    ],
     "configuration": {
       "title": "Theme Check | Liquid Linter by Shopify",
       "properties": {
