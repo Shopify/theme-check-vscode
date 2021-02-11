@@ -17,4 +17,4 @@ _Disclaimer: This tool is not supported as part of the Partners program._
 
 - `"themeCheck.languageServerPath": string`, (optional) a path to the `theme-check-language-server` executable.
 
-[tc]: //github.com/Shopify/theme-check
+[tc]: https://github.com/Shopify/theme-check
