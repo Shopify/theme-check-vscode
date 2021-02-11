@@ -32,6 +32,7 @@ async function getThemeCheckExecutable() {
 
 async function startServer() {
   const serverModule = await getThemeCheckExecutable();
+  console.log('Server Module %s', serverModule);
   if (!serverModule) return;
 
   const serverOptions = {
@@ -72,6 +73,12 @@ async function restartServer() {
   await startServer();
 }
 
+function onConfigChange(event) {
+  if (event.affectsConfiguration('themeCheck.languageServerPath')) {
+    restartServer();
+  }
+}
+
 async function activate(context) {
   context.subscriptions.push(
     vscode.commands.registerCommand(
@@ -79,6 +86,7 @@ async function activate(context) {
       restartServer,
     ),
   );
+  vscode.workspace.onDidChangeConfiguration(onConfigChange);
   await startServer();
 }
 
