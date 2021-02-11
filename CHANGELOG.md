@@ -1,4 +1,11 @@
 
+1.0.5 / 2021-02-11
+==================
+
+  * Add onDidChangeConfiguration handler
+  * Add restart server command
+  * Fix links in README
+
 1.0.4 / 2021-01-28
 ==================
 
