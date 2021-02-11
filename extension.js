@@ -64,8 +64,13 @@ async function startServer() {
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
 async function stopServer() {
-  if (client) await Promise.race([client.stop(), sleep(1000)]);
-  client = undefined;
+  try {
+    if (client) await Promise.race([client.stop(), sleep(1000)]);
+  } catch (e) {
+    console.error(e)
+  } finally {
+    client = undefined;
+  }
 }
 
 async function restartServer() {
