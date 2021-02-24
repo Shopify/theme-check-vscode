@@ -2,8 +2,6 @@
 
 This is the official VS Code extension for [Theme Check][tc], the liquid linter for Shopify themes.
 
-_Disclaimer: This tool is not supported as part of the Partners program._
-
 ## Requirements
 
 - [`theme-check`][tc] must be installed and available on your `$PATH`.
