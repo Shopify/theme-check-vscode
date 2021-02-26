@@ -72,7 +72,8 @@
         ],
         "extensions": [
           ".liquid"
-        ]
+        ],
+        "configuration": "./language-configuration.json"
       }
     ]
   },
