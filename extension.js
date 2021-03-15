@@ -10,6 +10,7 @@ const {
   TransportKind,
 } = require('vscode-languageclient');
 
+
 let client;
 
 async function getThemeCheckExecutable() {
@@ -77,13 +78,13 @@ async function restartServer() {
   if (client) await stopServer();
   await startServer();
 }
+/** */
 
 function onConfigChange(event) {
   if (event.affectsConfiguration('themeCheck.languageServerPath')) {
     restartServer();
   }
 }
-
 async function activate(context) {
   context.subscriptions.push(
     vscode.commands.registerCommand(
