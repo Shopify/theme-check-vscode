@@ -1,12 +1,21 @@
 
-1.0.5 / 2021-02-11
+0.2.0 / 2021-03-15
+==================
+
+  * Add Language Configuration
+    * Auto closing `{%`, `{{`, `{%-`, `{{-`, `<`, ...
+    * Indentation rules
+    * Block comment with `{% comment %}` `{% endcomment %}`
+  * Upgrade `vscode-languageclient` to v7.0.0 to support link to diagnostic documentation
+
+0.1.5 / 2021-02-11
 ==================
 
   * Add onDidChangeConfiguration handler
   * Add restart server command
   * Fix links in README
 
-1.0.4 / 2021-01-28
+0.1.4 / 2021-01-28
 ==================
 
   * Listen to changes in json files (for translations)
