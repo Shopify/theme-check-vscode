@@ -32,7 +32,7 @@ const closingLiquidTags = openingLiquidTags.map(
   (name) => `end${name}`,
 );
 
-// https://regex101.com/r/pl3GPU/1
+// https://regex101.com/r/CJhNM4/1
 function increaseIndentPattern() {
   const patterns = [
     // Opening HTML tags that are not self closing. Here we use a negative
@@ -48,12 +48,18 @@ function increaseIndentPattern() {
 
     // Variable start not closed
     String.raw`{{(?:(?!}}).)*`,
+
+    // Opening Brace Not Closed
+    String.raw`{(?:(?!}).)*`,
+    String.raw`\[(?:(?!\]).)*`,
+    String.raw`\((?:(?!\)).)*`,
   ];
 
   // The line must end by one of those patterns
   return String.raw`(${patterns.join('|')})$`;
 }
 
+// https://regex101.com/r/zaMWXO/1
 function decreaseIndentPattern() {
   const patterns = [
     // Closing HTML tags
@@ -70,6 +76,11 @@ function decreaseIndentPattern() {
 
     // Multiline HTML tag closed
     String.raw`>`,
+
+    // Multiline Closing Braces (JS/CSS)
+    String.raw`}`,
+    String.raw`\)`,
+    String.raw`\]`,
   ];
 
   // The line must start by one of those patterns
@@ -82,4 +93,7 @@ const indentationRules = {
     decreaseIndentPattern: decreaseIndentPattern(),
   }
 }
+
+// console.log(increaseIndentPattern());
+// console.log(decreaseIndentPattern());
 console.log(JSON.stringify(indentationRules, null, 2));
