@@ -10,6 +10,8 @@ const {
   TransportKind,
 } = require('vscode-languageclient');
 
+const COMMAND_LOCATE_UNIX = 'which';
+const COMMAND_LOCATE_WIN = 'where.exe';
 
 let client;
 
@@ -19,16 +21,33 @@ async function getThemeCheckExecutable() {
     .get('languageServerPath');
   if (configurationValue) return configurationValue;
 
-  try {
-    const { stdout } = await exec(
-      'which theme-check-language-server',
-    );
-    return stdout.replace('\n', '');
-  } catch (e) {
+  const cmdResults = await Promise.all([
+    COMMAND_LOCATE_UNIX,
+    COMMAND_LOCATE_WIN
+  ].map(async cmd => {
+    try {
+      const { stdout } = await exec(`${cmd} theme-check-language-server`);
+      return stdout;
+    } catch (e) {
+      return null;
+    }
+  }));
+
+  // Find any result
+  const themeCheckPath = cmdResults.find(result => result && result.length);
+  if(!themeCheckPath) {
     vscode.window.showWarningMessage(
       `The 'theme-check-language-server' executable was not found on your $PATH. Was it installed? The path can also be changed via the "themeCheck.languageServerPath" setting.`,
     );
+    return;
   }
+
+  // Clean up the path before returning result.
+  return themeCheckPath
+    .split('\n')
+    .map(n => n.trim())
+    .find(n => n && n.length)
+  ;
 }
 
 async function startServer() {
