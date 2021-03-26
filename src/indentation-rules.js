@@ -1,47 +1,25 @@
-// These HTML elements do not require to be closed (either via </tag> or <tag />)
-const voidElements = [
-  'area',
-  'base',
-  'br',
-  'col',
-  'embed',
-  'hr',
-  'img',
-  'input',
-  'keygen',
-  'link',
-  'menuitem',
-  'meta',
-  'param',
-  'source',
-  'track',
-  'wbr',
-];
-
-const openingLiquidTags = [
-  'if',
-  'form',
-  'comment',
-  'case',
-  'when',
-  'for',
-  'unless',
-];
+const { voidElements, openingLiquidTags } = require('./constants');
 
 const closingLiquidTags = openingLiquidTags.map(
   (name) => `end${name}`,
 );
 
-// https://regex101.com/r/CJhNM4/1
+// https://regex101.com/r/G4OYnb/1
 function increaseIndentPattern() {
   const patterns = [
     // Opening HTML tags that are not self closing. Here we use a negative
     // lookahead (?!) to make sure that the next character after < is not /
-    // or one of the void elements.
-    String.raw`<(?!\/|${voidElements.join('|')})[^>]+>`,
+    // or one of the void elements or a start comment.
+    String.raw`<(?!\/|${voidElements.join('|')}|!--)[^>\n]+>`,
 
     // Opening liquid tags that have a corresponding end$name tag.
-    String.raw`{%-?\s+(?:${openingLiquidTags.join('|')}).*?-?%}`, // opening liquid tags
+    String.raw`{%-?\s+(?:${openingLiquidTags.join('|')})[^}%]*?-?%}`, // opening liquid tags
+
+    // Multiline HTML comment open
+    String.raw`<!--[^>\n]*`,
+
+    // Multiline HTML tag not closed
+    String.raw`<(?!\/)[^>\n]+`,
 
     // Tag start not closed
     String.raw`{%(?:(?!%}).)*`,
@@ -53,13 +31,17 @@ function increaseIndentPattern() {
     String.raw`{(?:(?!}).)*`,
     String.raw`\[(?:(?!\]).)*`,
     String.raw`\((?:(?!\)).)*`,
+
+    // Closing tag (this technically means multiline void elements must be
+    // closed, but I couldn't find a better way to do this.)
+    String.raw`^\s*>`,
   ];
 
   // The line must end by one of those patterns
   return String.raw`(${patterns.join('|')})$`;
 }
 
-// https://regex101.com/r/zaMWXO/1
+//
 function decreaseIndentPattern() {
   const patterns = [
     // Closing HTML tags
@@ -77,6 +59,12 @@ function decreaseIndentPattern() {
     // Multiline HTML tag closed
     String.raw`>`,
 
+    // Multiline self-closing HTML tag closed
+    String.raw`\/>`,
+
+    // Multiline HTML block comment closed
+    String.raw`-->`,
+
     // Multiline Closing Braces (JS/CSS)
     String.raw`}`,
     String.raw`\)`,
@@ -88,12 +76,8 @@ function decreaseIndentPattern() {
 }
 
 const indentationRules = {
-  indentationRules: {
-    increaseIndentPattern: increaseIndentPattern(),
-    decreaseIndentPattern: decreaseIndentPattern(),
-  }
-}
+  increaseIndentPattern: increaseIndentPattern(),
+  decreaseIndentPattern: decreaseIndentPattern(),
+};
 
-// console.log(increaseIndentPattern());
-// console.log(decreaseIndentPattern());
-console.log(JSON.stringify(indentationRules, null, 2));
+module.exports = indentationRules;

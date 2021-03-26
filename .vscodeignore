@@ -1,0 +1,6 @@
+.vscode/
+node_modules/
+src/
+scripts/
+webpack.config.js
+theme-check-vscode*.vsix
