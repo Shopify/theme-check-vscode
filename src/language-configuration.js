@@ -1,4 +1,5 @@
-{
+const indentationRules = require('./indentation-rules');
+module.exports = {
   "comments": {
     "blockComment": ["{% comment %}", "{% endcomment %}"]
   },
@@ -28,8 +29,5 @@
     ["\"", "\""],
     ["`", "`"]
   ],
-  "indentationRules": {
-    "increaseIndentPattern": "(<(?!\\/|area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[^>]+>|{%-?\\s+(?:if|form|comment|case|when|for|unless).*?-?%}|{%(?:(?!%}).)*|{{(?:(?!}}).)*|{(?:(?!}).)*|\\[(?:(?!\\]).)*|\\((?:(?!\\)).)*)$",
-    "decreaseIndentPattern": "^\\s*(<\\/[^>]+>|{%-?\\s+(?:endif|endform|endcomment|endcase|endwhen|endfor|endunless).*?-?%}|%}|}}|>|}|\\)|\\])"
-  }
+  indentationRules,
 }
