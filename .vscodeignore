@@ -4,3 +4,4 @@ src/
 scripts/
 webpack.config.js
 theme-check-vscode*.vsix
+images/*.gif

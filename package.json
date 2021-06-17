@@ -18,8 +18,8 @@
     "theme-check"
   ],
   "preview": false,
-  "icon": "shopify_glyph.png",
-  "version": "0.2.2",
+  "icon": "images/shopify_glyph.png",
+  "version": "0.2.3",
   "homepage": "https://github.com/shopify/theme-check-vscode",
   "bugs": {
     "url": "https://github.com/shopify/theme-check-vscode/issues"
@@ -51,11 +51,11 @@
     "commands": [
       {
         "command": "themeCheck.restart",
-        "title": "Theme Check: Restart Server"
+        "title": "Shopify Liquid: Restart Server"
       }
     ],
     "configuration": {
-      "title": "Theme Check | Liquid Linter by Shopify",
+      "title": "Shopify Liquid",
       "properties": {
         "themeCheck.languageServerPath": {
           "type": [
