@@ -80,6 +80,13 @@
         ],
         "configuration": "./language-configuration.json"
       }
+    ],
+    "grammars": [
+      {
+        "language": "liquid",
+        "scopeName": "text.html.liquid",
+        "path": "./src/liquid.tmLanguage"
+      }
     ]
   },
   "devDependencies": {
