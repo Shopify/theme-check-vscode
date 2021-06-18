@@ -10,12 +10,11 @@ const {
   TransportKind,
 } = require('vscode-languageclient');
 
-
 let client;
 
 async function getThemeCheckExecutable() {
   const configurationValue = vscode.workspace
-    .getConfiguration('themeCheck')
+    .getConfiguration('shopifyLiquid')
     .get('languageServerPath');
   if (configurationValue) return configurationValue;
 
@@ -26,7 +25,7 @@ async function getThemeCheckExecutable() {
     return stdout.replace('\n', '');
   } catch (e) {
     vscode.window.showWarningMessage(
-      `The 'theme-check-language-server' executable was not found on your $PATH. Was it installed? The path can also be changed via the "themeCheck.languageServerPath" setting.`,
+      `The 'theme-check-language-server' executable was not found on your $PATH. Was it installed? The path can also be changed via the "shopifyLiquid.languageServerPath" setting.`,
     );
   }
 }
@@ -68,7 +67,7 @@ async function stopServer() {
   try {
     if (client) await Promise.race([client.stop(), sleep(1000)]);
   } catch (e) {
-    console.error(e)
+    console.error(e);
   } finally {
     client = undefined;
   }
@@ -81,14 +80,16 @@ async function restartServer() {
 /** */
 
 function onConfigChange(event) {
-  if (event.affectsConfiguration('themeCheck.languageServerPath')) {
+  if (
+    event.affectsConfiguration('shopifyLiquid.languageServerPath')
+  ) {
     restartServer();
   }
 }
 async function activate(context) {
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'themeCheck.restart',
+      'shopifyLiquid.restart',
       restartServer,
     ),
   );
