@@ -16,3 +16,7 @@ This is the official VS Code extension for [Theme Check][tc], the liquid linter 
 - `"themeCheck.languageServerPath": string`, (optional) a path to the `theme-check-language-server` executable.
 
 [tc]: https://github.com/Shopify/theme-check
+
+## Credits
+
+- Syntax highlighting from [siteleaf/liquid-syntax-mode](https://github.com/siteleaf/liquid-syntax-mode)

@@ -85,7 +85,7 @@
       {
         "language": "liquid",
         "scopeName": "text.html.liquid",
-        "path": "./src/liquid.tmLanguage"
+        "path": "./liquid.tmLanguage"
       }
     ]
   },
