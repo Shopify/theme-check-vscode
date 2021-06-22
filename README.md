@@ -47,7 +47,7 @@ gem install theme-check
 
 ## Configuration
 
-- `"themeCheck.languageServerPath": string`, (optional) a path to the `theme-check-language-server` executable.
+- `"shopifyLiquid.languageServerPath": string`, (optional) a path to the `theme-check-language-server` executable.
 
 [tc]: https://github.com/Shopify/theme-check
 
