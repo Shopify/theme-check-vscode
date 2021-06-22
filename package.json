@@ -5,8 +5,8 @@
   },
   "publisher": "Shopify",
   "license": "SEE LICENSE IN LICENSE.md",
-  "displayName": "Theme Check",
-  "description": "Linter for Shopify Liquid theme files",
+  "displayName": "Shopify Liquid",
+  "description": "A complete developer experience for Shopify themes",
   "categories": [
     "Programming Languages",
     "Linters",
@@ -18,7 +18,7 @@
     "theme-check"
   ],
   "preview": false,
-  "icon": "shopify_glyph.png",
+  "icon": "images/shopify_glyph.png",
   "version": "0.2.2",
   "homepage": "https://github.com/shopify/theme-check-vscode",
   "bugs": {
@@ -50,14 +50,14 @@
   "contributes": {
     "commands": [
       {
-        "command": "themeCheck.restart",
-        "title": "Theme Check: Restart Server"
+        "command": "shopifyLiquid.restart",
+        "title": "Liquid Theme Check: Restart Server"
       }
     ],
     "configuration": {
-      "title": "Theme Check | Liquid Linter by Shopify",
+      "title": "Shopify Liquid | Syntax Highlighting & Linter by Shopify",
       "properties": {
-        "themeCheck.languageServerPath": {
+        "shopifyLiquid.languageServerPath": {
           "type": [
             "string",
             "null"
