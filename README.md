@@ -26,27 +26,18 @@ Official VS Code extension for [Shopify Liquid](https://shopify.dev/docs/themes)
 
 ## Installation
 
-This VS Code extensions depends on [Theme Check][tc]. It is installed separately through Homebrew _or_ RubyGems.
+This VS Code extensions depends on the [Theme Check][tc] language server, which is bundled in the latest [Shopify CLI](https://shopify.dev/tools/cli).
 
-**Homebrew**
+To install the `shopify` CLI, follow these steps:
 
-You’ll need to run `brew tap` first to add Shopify’s third-party repositories to Homebrew.
-
-```sh
-brew tap shopify/shopify
-brew install theme-check
-```
-
-**RubyGems**
-
-```sh
-gem install theme-check
-```
+1. Go to https://shopify.dev/tools/cli/installation
+2. Follow the instructions for your operating system
 
 ⚠️ **Note:** Windows not yet supported.
 
 ## Configuration
 
+- `"shopifyLiquid.shopifyCLIPath": string`, (optional) a path to the `shopify` executable.
 - `"shopifyLiquid.languageServerPath": string`, (optional) a path to the `theme-check-language-server` executable.
 
 [tc]: https://github.com/Shopify/theme-check

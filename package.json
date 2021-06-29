@@ -33,6 +33,7 @@
     "build": "yarn build:extension && yarn build:language-config",
     "build:extension": "webpack --mode production",
     "build:language-config": "scripts/make-language-configuration",
+    "dev": "rm -rf dist && webpack --mode development --watch",
     "package": "yarn build && vsce package",
     "test": "mocha 'src/**/*.test.js'"
   },
@@ -57,6 +58,14 @@
     "configuration": {
       "title": "Shopify Liquid | Syntax Highlighting & Linter by Shopify",
       "properties": {
+        "shopifyLiquid.shopifyCLIPath": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "default": null,
+          "description": "Path to shopify executable. Defaults to `which shopify` if available on `$PATH`."
+        },
         "shopifyLiquid.languageServerPath": {
           "type": [
             "string",
