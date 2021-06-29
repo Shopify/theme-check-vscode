@@ -1,4 +1,17 @@
 
+1.0.0 / 2021-06-29
+==================
+
+  * v1.0.0
+  * Add Shopify CLI as recommended installation method
+
+0.3.2 / 2021-06-29
+==================
+
+  * Rename from Theme Check -> Shopify Liquid
+  * Add Syntax Highlighting
+  * Add fancy README
+
 0.2.0 / 2021-03-15
 ==================
 
