@@ -33,6 +33,10 @@ To install the `shopify` CLI, follow these steps:
 1. Go to https://shopify.dev/tools/cli/installation
 2. Follow the instructions for your operating system
 
+---
+⚠️ **Warning** Windows support is experimental. See [this issue](https://github.com/Shopify/theme-check-vscode/issues/5) for details.
+---
+
 ## Configuration
 
 - `"shopifyLiquid.shopifyCLIPath": string`, (optional) a path to the `shopify` executable.
