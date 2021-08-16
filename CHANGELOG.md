@@ -1,4 +1,10 @@
 
+1.1.2 / 2021-08-16
+==================
+
+  * Put Windows warning on README.
+  * Bump path-parse from 1.0.6 to 1.0.7
+
 1.1.0 / 2021-07-15
 ==================
 
