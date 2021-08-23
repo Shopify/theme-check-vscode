@@ -5,7 +5,6 @@ const vscode = require('vscode');
 const { LanguageClient } = require('vscode-languageclient');
 
 class CommandNotFoundError extends Error {}
-class IncompatibleVersionError extends Error {}
 
 const isWin = process.platform === 'win32';
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
@@ -85,6 +84,11 @@ function onConfigChange(event) {
 }
 
 async function getServerOptions() {
+  if (isWin) {
+    vscode.window.showWarningMessage(
+      'Shopify Liquid support on Windows is experimental. Please report any issue.',
+    );
+  }
   const themeCheckPath = vscode.workspace
     .getConfiguration('shopifyLiquid')
     .get('languageServerPath');
@@ -105,14 +109,17 @@ async function getServerOptions() {
   } catch (e) {
     if (e instanceof CommandNotFoundError) {
       vscode.window.showErrorMessage(e.message);
-    } else if (e instanceof IncompatibleVersionError) {
-      vscode.window.showErrorMessage(
-        `The shopify CLI must be of version >= 2.`,
-      );
     } else {
-      vscode.window.showWarningMessage(
-        `The 'shopify' executable was not found on your $PATH. Was it installed? The path can also be changed via the "shopifyLiquid.shopifyCLIPath" setting.`,
-      );
+      if (isWin) {
+        vscode.window.showWarningMessage(
+          `The 'theme-check-language-server' executable was not found on your $PATH. Was it installed? The path can also be changed via the "shopifyLiquid.languageServerPath" setting.`,
+        );
+      } else {
+        console.error(e);
+        vscode.window.showWarningMessage(
+          `The 'shopify' executable was not found on your $PATH. Was it installed? The path can also be changed via the "shopifyLiquid.shopifyCLIPath" setting.`,
+        );
+      }
     }
   }
 }
@@ -142,7 +149,7 @@ async function getThemeCheckExecutable() {
 }
 
 async function shopifyCLIExecutable(command) {
-  await shopifyCLIIsAtLeastVersion2(command);
+  if (isWin) return;
   return {
     command,
     args: ['theme', 'language-server'],
@@ -150,31 +157,13 @@ async function shopifyCLIExecutable(command) {
 }
 
 async function themeCheckExecutable(command) {
-  await themeCheckExecutableExists(command);
+  await commandExists(command);
   return {
     command,
   };
 }
 
-async function shopifyCLIIsAtLeastVersion2(command) {
-  try {
-    const { stdout: version } = await exec(`${command} version`);
-    const major = /(?<major>^\d+\.)/.exec(version)?.groups?.major;
-    const isAtLeastVersion2 =
-      Boolean(major) && parseInt(major, 10) >= 2;
-    if (!isAtLeastVersion2) throw new IncompatibleVersionError();
-  } catch (e) {
-    if (/No such file or directory/.test(e.message)) {
-      throw new CommandNotFoundError(
-        `${command} not found, are you sure this is the correct path?`,
-      );
-    } else {
-      throw e;
-    }
-  }
-}
-
-async function themeCheckExecutableExists(command) {
+async function commandExists(command) {
   try {
     !isWin && (await exec(`[[ -f "${command}" ]]`));
   } catch (e) {

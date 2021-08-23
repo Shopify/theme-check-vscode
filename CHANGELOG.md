@@ -1,4 +1,10 @@
 
+1.1.3 / 2021-08-23
+==================
+
+  * Add Windows experimental warning in editor
+  * Disable `shopify theme language-server` on Windows until we fix the upstream bug (See ([#42](https://github.com/shopify/theme-check-vscode/issues/42)))
+
 1.1.2 / 2021-08-16
 ==================
 

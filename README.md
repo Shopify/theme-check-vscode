@@ -41,7 +41,7 @@ To install the `shopify` CLI, follow these steps:
 
 ## Configuration
 
-- `"shopifyLiquid.shopifyCLIPath": string`, (optional) a path to the `shopify` executable.
+- `"shopifyLiquid.shopifyCLIPath": string`, (optional, Unix-only) a path to the `shopify` executable.
 - `"shopifyLiquid.languageServerPath": string`, (optional) a path to the `theme-check-language-server` executable.
 
 [tc]: https://github.com/Shopify/theme-check
