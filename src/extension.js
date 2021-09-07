@@ -83,8 +83,10 @@ function onConfigChange(event) {
   }
 }
 
+let hasShownWarning = false;
 async function getServerOptions() {
-  if (isWin) {
+  if (isWin && !hasShownWarning) {
+    hasShownWarning = true;
     vscode.window.showWarningMessage(
       'Shopify Liquid support on Windows is experimental. Please report any issue.',
     );
@@ -125,9 +127,17 @@ async function getServerOptions() {
 }
 
 async function which(command) {
-  const whichCmd = isWin ? 'where' : 'which';
-  const { stdout } = await exec(`${whichCmd} ${command}`);
-  return stdout.split('\n')[0].replace('\r', '');
+  if (isWin) {
+    const { stdout } = await exec(`where.exe ${command}`);
+    const executables = stdout
+      .replace(/\r/g, '')
+      .split('\n')
+      .filter(exe => exe.endsWith('bat'))
+    return executables.length > 0 && executables[0];
+  } else {
+    const { stdout } = await exec(`which ${command}`);
+    return stdout.split('\n')[0].replace('\r', '');
+  }
 }
 
 async function getShopifyCLIExecutable() {
