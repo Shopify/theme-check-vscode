@@ -1,5 +1,5 @@
 
-1.1.4 / 2021-08-23
+1.1.4 / 2021-09-07
 ==================
 
   * Fix the where command for Windows (select the .bat file)
