@@ -22,6 +22,8 @@
     git add .
     git commit -m "Bump to $VERSION"
     git push origin main
+    git tag "v$VERSION"
+    git push origin "v$VERSION"
     ```
 
 3.  Install node deps + build extension + publish (assumes you have `vsce` globally installed - `yarn global add vsce`)
