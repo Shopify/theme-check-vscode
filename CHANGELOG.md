@@ -1,4 +1,13 @@
 
+1.2.0 / 2021-12-01
+==================
+
+  * Overdue updates
+    - Document new LanguageServer configurations.
+    - Add way to opt out of annoying Windows warning.
+    - Improve the `activationEvents` (only folders with .theme-check.yml or onLanguage:liquid will start the extension)
+    - Add new "Shopify Theme Check: Run checks" command to manually run checks (for those that turn off all the checkOn* configs)
+
 1.1.5 / 2021-09-07
 ==================
 
