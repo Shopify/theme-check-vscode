@@ -18,6 +18,14 @@ async function activate(context) {
       restartServer,
     ),
   );
+  context.subscriptions.push(
+    vscode.commands.registerCommand(
+      'shopifyLiquid.runChecks',
+      () => client.sendRequest('workspace/executeCommand', {
+        command: 'runChecks',
+      }),
+    ),
+  );
   vscode.workspace.onDidChangeConfiguration(onConfigChange);
   await startServer();
 }
@@ -85,7 +93,10 @@ function onConfigChange(event) {
 
 let hasShownWarning = false;
 async function getServerOptions() {
-  if (isWin && !hasShownWarning) {
+  const disableWarning =  vscode.workspace
+    .getConfiguration('shopifyLiquid')
+    .get('disableWindowsWarning');
+  if (!disableWarning && isWin && !hasShownWarning) {
     hasShownWarning = true;
     vscode.window.showWarningMessage(
       'Shopify Liquid support on Windows is experimental. Please report any issue.',

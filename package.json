@@ -45,7 +45,8 @@
     "vscode-languageclient": "^7.0.0"
   },
   "activationEvents": [
-    "onStartupFinished"
+    "workspaceContains:**/.theme-check.yml",
+    "onLanguage:liquid"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -53,6 +54,10 @@
       {
         "command": "shopifyLiquid.restart",
         "title": "Liquid Theme Check: Restart Server"
+      },
+      {
+        "command": "shopifyLiquid.runChecks",
+        "title": "Liquid Theme Check: Run Checks"
       }
     ],
     "configuration": {
@@ -73,6 +78,26 @@
           ],
           "default": null,
           "description": "Path to theme-check-language-server. Defaults to `which theme-check-language-server` if available on `$PATH`."
+        },
+        "shopifyLiquid.disableWindowsWarning": {
+          "type": ["boolean"],
+          "description": "When true, theme check won't bug you with the Windows warning anymore.",
+          "default": false
+        },
+        "themeCheck.checkOnOpen": {
+          "type": ["boolean"],
+          "description": "When true, theme check runs on file open.",
+          "default": true
+        },
+        "themeCheck.checkOnChange": {
+          "type": ["boolean"],
+          "description": "When true, theme check runs on file change.",
+          "default": true
+        },
+        "themeCheck.checkOnSave": {
+          "type": ["boolean"],
+          "description": "When true, theme check runs on file open.",
+          "default": true
         }
       }
     },
