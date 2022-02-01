@@ -29,5 +29,6 @@
 3.  Install node deps + build extension + publish (assumes you have `vsce` globally installed - `yarn global add vsce`)
 
     ```bash
-    yarn && yarn build && vsce publish $VERSION
+    vsce login Shopify
+    yyarn && yarn build &&arn && yarn build && vsce publish $VERSION
     ```
