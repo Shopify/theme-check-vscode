@@ -21,6 +21,7 @@ Official VS Code extension for [Shopify Liquid](https://shopify.dev/docs/themes)
   - 📗 Completions
   - ✅ Linting
   - 🔎 Go to source
+  - 💬 Prettifying schema (click "schema", and when a bubble appears click it to auto-improve schema)
 - 📐 Automatic indentation
 - 🎎 Auto closing pairs
 
