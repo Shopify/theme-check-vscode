@@ -32,3 +32,7 @@
     vsce login Shopify
     yarn && yarn build && yarn && yarn build && vsce publish $VERSION
     ```
+
+4.  Make a GitHub release for the change.
+
+    https://github.com/Shopify/theme-check-vscode/releases/new
