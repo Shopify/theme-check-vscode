@@ -1,4 +1,9 @@
 
+1.3.2 / 2022-02-04
+==================
+
+  * Fixup bracket coloring inside embedded languages [#67](https://github.com/shopify/theme-check-vscode/issues/67)
+
 1.3.1 / 2022-02-04
 ==================
 
