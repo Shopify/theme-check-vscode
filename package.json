@@ -138,6 +138,10 @@
       {
         "path": "./syntaxes/liquid-injection.tmLanguage.json",
         "scopeName": "liquid.injection",
+        "embeddedLanguages": {
+          "meta.object.liquid": "liquid",
+          "meta.tag.liquid": "liquid"
+        },
         "injectTo": [
           "text.html.liquid"
         ]
