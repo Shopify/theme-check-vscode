@@ -30,5 +30,5 @@
 
     ```bash
     vsce login Shopify
-    yyarn && yarn build &&arn && yarn build && vsce publish $VERSION
+    yarn && yarn build && yarn && yarn build && vsce publish $VERSION
     ```
