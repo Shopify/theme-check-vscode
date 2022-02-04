@@ -1,4 +1,10 @@
 
+1.3.1 / 2022-02-04
+==================
+
+  * Fix annoying `{%--%} %}` autoclose issue ([#65](https://github.com/shopify/theme-check-vscode/issues/65))
+  * Add support for `editor.bracketPairColorization.enabled` ([#62](https://github.com/shopify/theme-check-vscode/issues/62))
+
 1.3.0 / 2022-02-01
 ==================
 
