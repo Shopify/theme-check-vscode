@@ -1,4 +1,9 @@
 
+1.3.3 / 2022-02-08
+==================
+
+  * Fixup highlighting of liquid tag comment blocks
+
 1.3.2 / 2022-02-04
 ==================
 
