@@ -1,4 +1,9 @@
 
+1.3.4 / 2022-02-09
+==================
+
+  * Fixup highlighting of raw and comment tags inside injections
+
 1.3.3 / 2022-02-08
 ==================
 
