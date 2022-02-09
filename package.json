@@ -29,9 +29,10 @@
     "url": "https://github.com/shopify/theme-check-vscode.git"
   },
   "scripts": {
-    "build": "yarn build:extension && yarn build:language-config",
+    "build": "yarn build:extension && yarn build:language-config && yarn build:syntax",
     "build:extension": "webpack --mode production",
     "build:language-config": "scripts/make-language-configuration",
+    "build:syntax": "yarn --cwd ./syntaxes build",
     "dev": "rimraf dist && webpack --mode development --watch",
     "dev:syntax": "yarn --cwd ./syntaxes dev",
     "package": "yarn build && vsce package",
