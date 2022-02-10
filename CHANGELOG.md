@@ -1,4 +1,9 @@
 
+1.3.6 / 2022-02-10
+==================
+
+  * Fixup raw tag highlighting with whitespace stripping characters
+
 1.3.5 / 2022-02-10
 ==================
 
