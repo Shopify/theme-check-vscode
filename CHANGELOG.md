@@ -1,4 +1,9 @@
 
+1.3.5 / 2022-02-10
+==================
+
+  * Fixup highlighting of whitespace stripping comments
+
 1.3.4 / 2022-02-09
 ==================
 
