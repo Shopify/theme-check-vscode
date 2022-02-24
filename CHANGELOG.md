@@ -1,4 +1,9 @@
 
+1.3.8 / 2022-02-24
+==================
+
+  * Document `themeCheck.onlySingleFileChecks` configuration (theme-check v1.10.0+)
+
 1.3.7 / 2022-02-15
 ==================
 
