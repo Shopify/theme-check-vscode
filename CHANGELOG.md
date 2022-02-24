@@ -1,8 +1,19 @@
 
+1.3.9 / 2022-02-24
+==================
+
+  * Document `themeCheck.onlySingleFileChecks` in the README as well.
+
 1.3.8 / 2022-02-24
 ==================
 
   * Document `themeCheck.onlySingleFileChecks` configuration (theme-check v1.10.0+)
+
+    Since v1.10.0, [theme-check](https://github.com/shopify/theme-check) is a bit smarter with `checkOnChange`.
+
+    Instead of rerunning all the checks that span multiple files (UnusedSnippet, TranslationKeyExists, etc.), it only reruns single file checks for the file being changed and merges the result with the previous whole theme checks. **This makes `textDocument/didChange` checks happen ~125x faster (~1250ms -> 10ms).**
+
+    If you want this speed increase all the time (at the cost of ignoring whole theme checks during development), now you can by setting `themeCheck.onlySingleFileChecks` to `true` in your VS Code's `config.json`.
 
 1.3.7 / 2022-02-15
 ==================
