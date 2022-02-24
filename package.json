@@ -109,6 +109,13 @@
           ],
           "description": "When true, theme check runs on file open.",
           "default": true
+        },
+        "themeCheck.onlySingleFileChecks": {
+          "type": [
+            "boolean"
+          ],
+          "description": "When true, disables whole theme checks. Can improve performance. (theme-check v1.10.0+)",
+          "default": false
         }
       }
     },
