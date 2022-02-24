@@ -47,6 +47,9 @@ To install the `shopify` CLI, follow these steps:
 - `"themeCheck.checkOnOpen": boolean`, (default: `true`) makes it so theme check runs on file open.
 - `"themeCheck.checkOnChange": boolean`, (default: `true`) makes it so theme check runs on file change.
 - `"themeCheck.checkOnSave": boolean`, (default: `true`) makes it so theme check runs on file save.
+- `"themeCheck.onlySingleFileChecks": boolean`, (default: `false`) makes it so theme check only runs single file checks for the files that are open.
+
+  Great for performance if can ignore checks that span multiple files during development and otherwise run full theme checks on the CLI or in CI.
 
 [tc]: https://github.com/Shopify/theme-check
 
