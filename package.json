@@ -137,14 +137,14 @@
       {
         "language": "liquid",
         "scopeName": "text.html.liquid",
-        "path": "./syntaxes/liquid.tmLanguage.json",
+        "path": "./syntaxes/grammars/liquid.tmLanguage.json",
         "embeddedLanguages": {
           "meta.embedded.block.css": "css",
           "meta.embedded.block.js": "javascript"
         }
       },
       {
-        "path": "./syntaxes/liquid-injection.tmLanguage.json",
+        "path": "./syntaxes/grammars/liquid-injection.tmLanguage.json",
         "scopeName": "liquid.injection",
         "embeddedLanguages": {
           "meta.object.liquid": "liquid",
