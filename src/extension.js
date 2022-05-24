@@ -1,8 +1,16 @@
 const promisify = require('util').promisify;
 const exec = promisify(require('child_process').exec);
 const vscode = require('vscode');
-
 const { LanguageClient } = require('vscode-languageclient');
+const LiquidFormatter = require('./formatter');
+
+/**
+ * @type vscode.DocumentFilter
+ **/
+const LIQUID = {
+  language: 'liquid',
+  scheme: 'file',
+};
 
 class CommandNotFoundError extends Error {}
 
@@ -19,11 +27,16 @@ async function activate(context) {
     ),
   );
   context.subscriptions.push(
-    vscode.commands.registerCommand(
-      'shopifyLiquid.runChecks',
-      () => client.sendRequest('workspace/executeCommand', {
+    vscode.commands.registerCommand('shopifyLiquid.runChecks', () =>
+      client.sendRequest('workspace/executeCommand', {
         command: 'runChecks',
       }),
+    ),
+  );
+  context.subscriptions.push(
+    vscode.languages.registerDocumentFormattingEditProvider(
+      LIQUID,
+      new LiquidFormatter(),
     ),
   );
   vscode.workspace.onDidChangeConfiguration(onConfigChange);
@@ -93,7 +106,7 @@ function onConfigChange(event) {
 
 let hasShownWarning = false;
 async function getServerOptions() {
-  const disableWarning =  vscode.workspace
+  const disableWarning = vscode.workspace
     .getConfiguration('shopifyLiquid')
     .get('disableWindowsWarning');
   if (!disableWarning && isWin && !hasShownWarning) {
@@ -143,7 +156,7 @@ async function which(command) {
     const executables = stdout
       .replace(/\r/g, '')
       .split('\n')
-      .filter(exe => exe.endsWith('bat'))
+      .filter((exe) => exe.endsWith('bat'));
     return executables.length > 0 && executables[0];
   } else {
     const { stdout } = await exec(`which ${command}`);

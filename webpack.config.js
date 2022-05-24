@@ -9,11 +9,12 @@ const config = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'extension.js',
     libraryTarget: 'commonjs2',
-    devtoolModuleFilenameTemplate: '../[resource-path]'
+    devtoolModuleFilenameTemplate: '../[resource-path]',
   },
   devtool: 'source-map',
   externals: {
-    vscode: 'commonjs vscode' // the vscode-module is created on-the-fly and must be excluded
+    vscode: 'commonjs vscode', // the vscode-module is created on-the-fly and must be excluded
+    prettier: 'commonjs prettier',
   },
 };
 module.exports = config;
