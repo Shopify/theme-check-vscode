@@ -8,7 +8,11 @@ class LiquidFormatter {
    * @returns {vscode.ProviderResult<vscode.TextEdit[]>}
    */
   async provideDocumentFormattingEdits(textDocument) {
-    return [await toTextEdit(textDocument)];
+    try {
+      return [await toTextEdit(textDocument)];
+    } catch (e) {
+      return null;
+    }
   }
 }
 
