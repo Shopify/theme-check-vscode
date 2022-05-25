@@ -18,13 +18,19 @@ const isWin = process.platform === 'win32';
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
 let client;
+let context;
 
 function getConfig(path) {
   const [namespace, key] = path.split('.');
   return vscode.workspace.getConfiguration(namespace).get(key);
 }
 
-async function activate(context) {
+/**
+ * @param {vscode.ExtensionContext} extensionContext
+ */
+async function activate(extensionContext) {
+  context = extensionContext;
+
   context.subscriptions.push(
     vscode.commands.registerCommand(
       'shopifyLiquid.restart',
@@ -39,14 +45,7 @@ async function activate(context) {
     ),
   );
 
-  if (getConfig('shopifyLiquid.formatterDevPreview')) {
-    context.subscriptions.push(
-      vscode.languages.registerDocumentFormattingEditProvider(
-        LIQUID,
-        new LiquidFormatter(),
-      ),
-    );
-  }
+  restartFormattingEditProvider();
 
   vscode.workspace.onDidChangeConfiguration(onConfigChange);
   await startServer();
@@ -92,6 +91,7 @@ async function stopServer() {
   } catch (e) {
     console.error(e);
   } finally {
+    context = undefined;
     client = undefined;
   }
 }
@@ -101,6 +101,28 @@ async function restartServer() {
   await startServer();
 }
 
+let formattingProvider = null;
+
+async function restartFormattingEditProvider() {
+  const formatterDevPreview = getConfig(
+    'shopifyLiquid.formatterDevPreview',
+  );
+
+  if (!formatterDevPreview && formattingProvider) {
+    formattingProvider.dispose();
+    formattingProvider = null;
+  }
+
+  if (formatterDevPreview && !formattingProvider) {
+    formattingProvider =
+      vscode.languages.registerDocumentFormattingEditProvider(
+        LIQUID,
+        new LiquidFormatter(),
+      );
+    context.subscriptions.push(formattingProvider);
+  }
+}
+
 function onConfigChange(event) {
   const didChangeThemeCheck = event.affectsConfiguration(
     'shopifyLiquid.languageServerPath',
@@ -108,21 +130,32 @@ function onConfigChange(event) {
   const didChangeShopifyCLI = event.affectsConfiguration(
     'shopifyLiquid.shopifyCLIPath',
   );
+  const didChangeFormatterDevPreview = event.affectsConfiguration(
+    'shopifyLiquid.formatterDevPreview',
+  );
   if (didChangeThemeCheck || didChangeShopifyCLI) {
     restartServer();
+  }
+
+  if (didChangeFormatterDevPreview) {
+    restartFormattingEditProvider();
   }
 }
 
 let hasShownWarning = false;
 async function getServerOptions() {
-  const disableWarning = getConfig('shopifyLiquid.disableWindowsWarning');
+  const disableWarning = getConfig(
+    'shopifyLiquid.disableWindowsWarning',
+  );
   if (!disableWarning && isWin && !hasShownWarning) {
     hasShownWarning = true;
     vscode.window.showWarningMessage(
       'Shopify Liquid support on Windows is experimental. Please report any issue.',
     );
   }
-  const themeCheckPath = getConfig('shopifyLiquid.languageServerPath');
+  const themeCheckPath = getConfig(
+    'shopifyLiquid.languageServerPath',
+  );
   const shopifyCLIPath = getConfig('shopifyLiquid.shopifyCLIPath');
 
   try {
