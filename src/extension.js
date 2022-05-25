@@ -1,8 +1,16 @@
 const promisify = require('util').promisify;
 const exec = promisify(require('child_process').exec);
 const vscode = require('vscode');
-
 const { LanguageClient } = require('vscode-languageclient');
+const LiquidFormatter = require('./formatter');
+
+/**
+ * @type vscode.DocumentFilter
+ **/
+const LIQUID = {
+  language: 'liquid',
+  scheme: 'file',
+};
 
 class CommandNotFoundError extends Error {}
 
@@ -10,8 +18,19 @@ const isWin = process.platform === 'win32';
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
 let client;
+let context;
 
-async function activate(context) {
+function getConfig(path) {
+  const [namespace, key] = path.split('.');
+  return vscode.workspace.getConfiguration(namespace).get(key);
+}
+
+/**
+ * @param {vscode.ExtensionContext} extensionContext
+ */
+async function activate(extensionContext) {
+  context = extensionContext;
+
   context.subscriptions.push(
     vscode.commands.registerCommand(
       'shopifyLiquid.restart',
@@ -19,13 +38,15 @@ async function activate(context) {
     ),
   );
   context.subscriptions.push(
-    vscode.commands.registerCommand(
-      'shopifyLiquid.runChecks',
-      () => client.sendRequest('workspace/executeCommand', {
+    vscode.commands.registerCommand('shopifyLiquid.runChecks', () =>
+      client.sendRequest('workspace/executeCommand', {
         command: 'runChecks',
       }),
     ),
   );
+
+  restartFormattingEditProvider();
+
   vscode.workspace.onDidChangeConfiguration(onConfigChange);
   await startServer();
 }
@@ -70,6 +91,7 @@ async function stopServer() {
   } catch (e) {
     console.error(e);
   } finally {
+    context = undefined;
     client = undefined;
   }
 }
@@ -79,6 +101,28 @@ async function restartServer() {
   await startServer();
 }
 
+let formattingProvider = null;
+
+async function restartFormattingEditProvider() {
+  const formatterDevPreview = getConfig(
+    'shopifyLiquid.formatterDevPreview',
+  );
+
+  if (!formatterDevPreview && formattingProvider) {
+    formattingProvider.dispose();
+    formattingProvider = null;
+  }
+
+  if (formatterDevPreview && !formattingProvider) {
+    formattingProvider =
+      vscode.languages.registerDocumentFormattingEditProvider(
+        LIQUID,
+        new LiquidFormatter(),
+      );
+    context.subscriptions.push(formattingProvider);
+  }
+}
+
 function onConfigChange(event) {
   const didChangeThemeCheck = event.affectsConfiguration(
     'shopifyLiquid.languageServerPath',
@@ -86,28 +130,33 @@ function onConfigChange(event) {
   const didChangeShopifyCLI = event.affectsConfiguration(
     'shopifyLiquid.shopifyCLIPath',
   );
+  const didChangeFormatterDevPreview = event.affectsConfiguration(
+    'shopifyLiquid.formatterDevPreview',
+  );
   if (didChangeThemeCheck || didChangeShopifyCLI) {
     restartServer();
+  }
+
+  if (didChangeFormatterDevPreview) {
+    restartFormattingEditProvider();
   }
 }
 
 let hasShownWarning = false;
 async function getServerOptions() {
-  const disableWarning =  vscode.workspace
-    .getConfiguration('shopifyLiquid')
-    .get('disableWindowsWarning');
+  const disableWarning = getConfig(
+    'shopifyLiquid.disableWindowsWarning',
+  );
   if (!disableWarning && isWin && !hasShownWarning) {
     hasShownWarning = true;
     vscode.window.showWarningMessage(
       'Shopify Liquid support on Windows is experimental. Please report any issue.',
     );
   }
-  const themeCheckPath = vscode.workspace
-    .getConfiguration('shopifyLiquid')
-    .get('languageServerPath');
-  const shopifyCLIPath = vscode.workspace
-    .getConfiguration('shopifyLiquid')
-    .get('shopifyCLIPath');
+  const themeCheckPath = getConfig(
+    'shopifyLiquid.languageServerPath',
+  );
+  const shopifyCLIPath = getConfig('shopifyLiquid.shopifyCLIPath');
 
   try {
     const executable =
@@ -143,7 +192,7 @@ async function which(command) {
     const executables = stdout
       .replace(/\r/g, '')
       .split('\n')
-      .filter(exe => exe.endsWith('bat'))
+      .filter((exe) => exe.endsWith('bat'));
     return executables.length > 0 && executables[0];
   } else {
     const { stdout } = await exec(`which ${command}`);

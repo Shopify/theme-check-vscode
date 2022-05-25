@@ -45,7 +45,19 @@
   },
   "dependencies": {
     "vsce": "^1.87.0",
+    "prettier": "^2.6.2",
     "vscode-languageclient": "^7.0.0"
+  },
+  "devDependencies": {
+    "@types/vscode": "1.43.0",
+    "chai": "^4.3.4",
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "mocha": "^8.3.2",
+    "rimraf": "^3.0.2",
+    "vscode-test": "^1.3.0",
+    "webpack": "^5.28.0",
+    "webpack-cli": "^4.5.0"
   },
   "activationEvents": [
     "workspaceContains:**/.theme-check.yml",
@@ -87,6 +99,13 @@
             "boolean"
           ],
           "description": "When true, theme check won't bug you with the Windows warning anymore.",
+          "default": false
+        },
+        "shopifyLiquid.formatterDevPreview": {
+          "type": [
+            "boolean"
+          ],
+          "description": "When true, integrates the developer preview of our code formatting plugin: @shopify/prettier-plugin-liquid",
           "default": false
         },
         "themeCheck.checkOnOpen": {
@@ -155,17 +174,5 @@
         ]
       }
     ]
-  },
-  "devDependencies": {
-    "@types/vscode": "1.43.0",
-    "chai": "^4.3.4",
-    "eslint": "^7.29.0",
-    "eslint-config-prettier": "^8.3.0",
-    "mocha": "^8.3.2",
-    "prettier": "^2.5.1",
-    "rimraf": "^3.0.2",
-    "vscode-test": "^1.3.0",
-    "webpack": "^5.28.0",
-    "webpack-cli": "^4.5.0"
   }
 }

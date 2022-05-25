@@ -43,6 +43,7 @@ To install the `shopify` CLI, follow these steps:
 
 - `"shopifyLiquid.shopifyCLIPath": string`, (optional, Unix-only) a path to the `shopify` executable.
 - `"shopifyLiquid.languageServerPath": string`, (optional) a path to the `theme-check-language-server` executable.
+- `"shopifyLiquid.formatterDevPreview": boolean`, (default: `false`) When true, integrates the developer preview of our code formatting plugin: [@shopify/prettier-plugin-liquid](https://github.com/shopify/prettier-plugin-liquid)
 - `"shopifyLiquid.disableWindowsWarning": boolean`, (default: `false`) When true, theme check won't bug you with the Windows warning anymore.
 - `"themeCheck.checkOnOpen": boolean`, (default: `true`) makes it so theme check runs on file open.
 - `"themeCheck.checkOnChange": boolean`, (default: `true`) makes it so theme check runs on file change.
