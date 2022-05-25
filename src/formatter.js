@@ -5,7 +5,7 @@ const LiquidPrettierPlugin = require('@shopify/prettier-plugin-liquid/standalone
 class LiquidFormatter {
   /**
    * @param {vscode.TextDocument} textDocument - the text doc
-   * @returns {Promise<vscode.TextEdit[]>}
+   * @returns {vscode.ProviderResult<vscode.TextEdit[]>}
    */
   async provideDocumentFormattingEdits(textDocument) {
     return [await toTextEdit(textDocument)];
@@ -15,6 +15,7 @@ class LiquidFormatter {
 /**
  * @param {vscode.TextDocument} textDocument
  * @param {string} source
+ * @returns {vscode.ProviderResult<vscode.TextEdit>}
  */
 async function toTextEdit(textDocument) {
   const options = await prettier.resolveConfig(
