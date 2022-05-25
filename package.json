@@ -101,6 +101,13 @@
           "description": "When true, theme check won't bug you with the Windows warning anymore.",
           "default": false
         },
+        "shopifyLiquid.formatterDevPreview": {
+          "type": [
+            "boolean"
+          ],
+          "description": "When true, integrates the developer preview of our code formatting plugin: @shopify/prettier-plugin-liquid",
+          "default": false
+        },
         "themeCheck.checkOnOpen": {
           "type": [
             "boolean"

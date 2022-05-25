@@ -19,6 +19,11 @@ const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
 let client;
 
+function getConfig(path) {
+  const [namespace, key] = path.split('.');
+  return vscode.workspace.getConfiguration(namespace).get(key);
+}
+
 async function activate(context) {
   context.subscriptions.push(
     vscode.commands.registerCommand(
@@ -33,12 +38,16 @@ async function activate(context) {
       }),
     ),
   );
-  context.subscriptions.push(
-    vscode.languages.registerDocumentFormattingEditProvider(
-      LIQUID,
-      new LiquidFormatter(),
-    ),
-  );
+
+  if (getConfig('shopifyLiquid.formatterDevPreview')) {
+    context.subscriptions.push(
+      vscode.languages.registerDocumentFormattingEditProvider(
+        LIQUID,
+        new LiquidFormatter(),
+      ),
+    );
+  }
+
   vscode.workspace.onDidChangeConfiguration(onConfigChange);
   await startServer();
 }
@@ -106,21 +115,15 @@ function onConfigChange(event) {
 
 let hasShownWarning = false;
 async function getServerOptions() {
-  const disableWarning = vscode.workspace
-    .getConfiguration('shopifyLiquid')
-    .get('disableWindowsWarning');
+  const disableWarning = getConfig('shopifyLiquid.disableWindowsWarning');
   if (!disableWarning && isWin && !hasShownWarning) {
     hasShownWarning = true;
     vscode.window.showWarningMessage(
       'Shopify Liquid support on Windows is experimental. Please report any issue.',
     );
   }
-  const themeCheckPath = vscode.workspace
-    .getConfiguration('shopifyLiquid')
-    .get('languageServerPath');
-  const shopifyCLIPath = vscode.workspace
-    .getConfiguration('shopifyLiquid')
-    .get('shopifyCLIPath');
+  const themeCheckPath = getConfig('shopifyLiquid.languageServerPath');
+  const shopifyCLIPath = getConfig('shopifyLiquid.shopifyCLIPath');
 
   try {
     const executable =
