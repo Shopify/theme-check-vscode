@@ -1,4 +1,23 @@
 
+1.4.0 / 2022-05-25
+==================
+
+  * Use standard location for the Liquid grammar
+  * Add Liquid Formatting Developer Preview
+    * Do the following to enable enable the preview:
+      1. Set `"shopifyLiquid.formatterDevPreview"` to `true` in your VS Code `settings.json`
+      2. Do any of the following:
+        * Right-click in a `.liquid` file > `Format Document`
+        * Select `Format Document` from the command palette (`cmd+p`)
+        * Bind `Format Document` to a keyboard shortcut
+        * Enable `formatOnSave` for Liquid files:
+          ```
+          "[liquid]": {
+            "editor.defaultFormatter": "Shopify.theme-check-vscode",
+            "editor.formatOnSave": true
+          },
+          ```
+
 1.3.9 / 2022-02-24
 ==================
 
