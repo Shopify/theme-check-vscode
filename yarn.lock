@@ -43,6 +43,15 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@shopify/prettier-plugin-liquid@^0.1.1":
+  version "0.1.1"
+  resolved "https://npm.shopify.io/node/@shopify/prettier-plugin-liquid/-/0.1.1/prettier-plugin-liquid-0.1.1.tgz#b041a5b407a706d0872ba35c90c83bd88337fbc4"
+  integrity sha512-/99a4Cbn9heSTUKqL/EIpYdcFV0zOJXeT/blSQQ3s7smDMno+qVNOP6FeFJm6kGHthWmN77GJwUBp36Rk80gDg==
+  dependencies:
+    html-styles "^1.0.0"
+    line-column "^1.0.2"
+    ohm-js "^16.0.0"
+
 "@types/eslint-scope@^3.7.0":
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/@types/eslint-scope/-/eslint-scope-3.7.0.tgz#4792816e31119ebd506902a482caec4951fabd86"
@@ -1064,6 +1073,11 @@ he@1.2.0:
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
 
+html-styles@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/html-styles/-/html-styles-1.0.0.tgz#a18061fd651f99c6b75c45c8e0549a3bc3e01a75"
+  integrity sha1-oYBh/WUfmca3XEXI4FSaO8PgGnU=
+
 htmlparser2@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-6.0.0.tgz#c2da005030390908ca4c91e5629e418e0665ac01"
@@ -1197,10 +1211,22 @@ is-stream@^2.0.0:
   resolved "https://registry.yarnpkg.com/is-stream/-/is-stream-2.0.0.tgz#bde9c32680d6fae04129d6ac9d921ce7815f78e3"
   integrity sha512-XCoy+WlUr7d1+Z8GgSuXmpuUFC9fOhRXglJMx+dwLKTkL44Cjd4W1Z5P+BQZpr+cR93aGP4S/s7Ftw6Nd/kiEw==
 
+isarray@1.0.0, isarray@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
+  integrity sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
+
 isexe@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
+
+isobject@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/isobject/-/isobject-2.1.0.tgz#f065561096a3f1da2ef46272f815c840d87e0c89"
+  integrity sha1-8GVWEJaj8dou9GJy+BXIQNh+DIk=
+  dependencies:
+    isarray "1.0.0"
 
 isobject@^3.0.1:
   version "3.0.1"
@@ -1273,6 +1299,14 @@ levn@^0.4.1:
   dependencies:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
+
+line-column@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/line-column/-/line-column-1.0.2.tgz#d25af2936b6f4849172b312e4792d1d987bc34a2"
+  integrity sha1-0lryk2tvSEkXKzEuR5LR2Ye8NKI=
+  dependencies:
+    isarray "^1.0.0"
+    isobject "^2.0.0"
 
 linkify-it@^2.0.0:
   version "2.2.0"
@@ -1473,6 +1507,11 @@ nth-check@^2.0.0:
   integrity sha512-i4sc/Kj8htBrAiH1viZ0TgU8Y5XqCaV/FziYK6TBczxmeKm3AEFWqqF3195yKudrarqy7Zu80Ra5dobFjn9X/Q==
   dependencies:
     boolbase "^1.0.0"
+
+ohm-js@^16.0.0:
+  version "16.3.4"
+  resolved "https://registry.yarnpkg.com/ohm-js/-/ohm-js-16.3.4.tgz#c0aef541785b9a70d4d52fd42e74c0405e84cc6f"
+  integrity sha512-Twk5k+an4HLKH/3QMiItq87svx+2aG6HVYa3jTs5D54GuKIYs2UQUF5NH/+y/pvVmocwWulrBd4VdrNVPQ2zJQ==
 
 once@^1.3.0:
   version "1.4.0"

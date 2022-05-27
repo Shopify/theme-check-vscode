@@ -44,8 +44,9 @@
     "vscode": "^1.43.0"
   },
   "dependencies": {
-    "vsce": "^1.87.0",
+    "@shopify/prettier-plugin-liquid": "^0.1.1",
     "prettier": "^2.6.2",
+    "vsce": "^1.87.0",
     "vscode-languageclient": "^7.0.0"
   },
   "devDependencies": {
