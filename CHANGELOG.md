@@ -1,4 +1,9 @@
 
+1.4.3 / 2022-05-27
+==================
+
+  * Add explicit dependency to @shopify/prettier-plugin-liquid
+
 1.4.2 / 2022-05-27
 ==================
 
