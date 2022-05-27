@@ -32,7 +32,7 @@ async function toTextEdit(textDocument) {
     plugins: [LiquidPrettierPlugin],
   });
   const start = textDocument.positionAt(0);
-  const end = textDocument.positionAt(text.length - 1);
+  const end = textDocument.positionAt(text.length);
   return vscode.TextEdit.replace(
     new vscode.Range(start, end),
     formatted,
