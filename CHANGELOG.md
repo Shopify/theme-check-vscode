@@ -1,4 +1,10 @@
 
+1.4.2 / 2022-05-27
+==================
+
+  * Fixup formatter extra character problem
+  * Stop treating .{s?css,js}.liquid files as liquid files
+
 1.4.1 / 2022-05-25
 ==================
 
