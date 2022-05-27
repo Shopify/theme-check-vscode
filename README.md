@@ -53,7 +53,3 @@ To install the `shopify` CLI, follow these steps:
   Great for performance if can ignore checks that span multiple files during development and otherwise run full theme checks on the CLI or in CI.
 
 [tc]: https://github.com/Shopify/theme-check
-
-## Credits
-
-- Syntax highlighting from [siteleaf/liquid-syntax-mode](https://github.com/siteleaf/liquid-syntax-mode)
