@@ -141,6 +141,7 @@
     "languages": [
       {
         "id": "liquid",
+        "configuration": "./language-configuration.json",
         "aliases": [
           "Liquid",
           "liquid",
@@ -148,8 +149,27 @@
         ],
         "extensions": [
           ".liquid"
-        ],
-        "configuration": "./language-configuration.json"
+        ]
+      },
+      {
+        "id": "javascript",
+        "extensions": [
+          ".js.liquid",
+          ".ts.liquid"
+        ]
+      },
+      {
+        "id": "css",
+        "extensions": [
+          ".css.liquid"
+        ]
+      },
+      {
+        "id": "scss",
+        "extensions": [
+          ".scss.liquid",
+          ".sass.liquid"
+        ]
       }
     ],
     "grammars": [
