@@ -1,4 +1,10 @@
 
+1.5.0 / 2022-08-10
+==================
+
+  * Bump prettier plugin version to v0.2.1
+  * Syntax highlighting update (nested comments)
+
 1.4.3 / 2022-05-27
 ==================
 
