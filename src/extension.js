@@ -5,12 +5,18 @@ const { LanguageClient } = require('vscode-languageclient');
 const LiquidFormatter = require('./formatter');
 
 /**
- * @type vscode.DocumentFilter
+ * @type vscode.DocumentFilter[]
  **/
-const LIQUID = {
-  language: 'liquid',
-  scheme: 'file',
-};
+const LIQUID = [
+  {
+    language: 'liquid',
+    scheme: 'file',
+  },
+  {
+    language: 'liquid',
+    scheme: 'untitled',
+  }
+];
 
 class CommandNotFoundError extends Error {}
 

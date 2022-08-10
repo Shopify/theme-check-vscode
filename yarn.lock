@@ -43,14 +43,14 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@shopify/prettier-plugin-liquid@^0.1.1":
-  version "0.1.1"
-  resolved "https://npm.shopify.io/node/@shopify/prettier-plugin-liquid/-/0.1.1/prettier-plugin-liquid-0.1.1.tgz#b041a5b407a706d0872ba35c90c83bd88337fbc4"
-  integrity sha512-/99a4Cbn9heSTUKqL/EIpYdcFV0zOJXeT/blSQQ3s7smDMno+qVNOP6FeFJm6kGHthWmN77GJwUBp36Rk80gDg==
+"@shopify/prettier-plugin-liquid@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@shopify/prettier-plugin-liquid/-/prettier-plugin-liquid-0.2.1.tgz#e4390a521131354aa5db512dbaf114784f947131"
+  integrity sha512-9UQnspQTx3gc8lN3fPQ57fv63x+6CJLmmQHq94DMoQ03MwiWT87hhnsYNzVDmpYR7fr0jMmf/CftRZAFL2Sogw==
   dependencies:
     html-styles "^1.0.0"
     line-column "^1.0.2"
-    ohm-js "^16.0.0"
+    ohm-js "^16.3.0"
 
 "@types/eslint-scope@^3.7.0":
   version "3.7.0"
@@ -1076,7 +1076,7 @@ he@1.2.0:
 html-styles@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/html-styles/-/html-styles-1.0.0.tgz#a18061fd651f99c6b75c45c8e0549a3bc3e01a75"
-  integrity sha1-oYBh/WUfmca3XEXI4FSaO8PgGnU=
+  integrity sha512-cDl5dcj73oI4Hy0DSUNh54CAwslNLJRCCoO+RNkVo+sBrjA/0+7E/xzvj3zH/GxbbBLGJhE0hBe1eg+0FINC6w==
 
 htmlparser2@^6.0.0:
   version "6.0.0"
@@ -1214,7 +1214,7 @@ is-stream@^2.0.0:
 isarray@1.0.0, isarray@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-1.0.0.tgz#bb935d48582cba168c06834957a54a3e07124f11"
-  integrity sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE=
+  integrity sha512-VLghIWNM6ELQzo7zwmcg0NmTVyWKYjvIeM83yjp0wRDTmUnrM678fQbcKBo6n2CJEF0szoG//ytg+TKla89ALQ==
 
 isexe@^2.0.0:
   version "2.0.0"
@@ -1224,7 +1224,7 @@ isexe@^2.0.0:
 isobject@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-2.1.0.tgz#f065561096a3f1da2ef46272f815c840d87e0c89"
-  integrity sha1-8GVWEJaj8dou9GJy+BXIQNh+DIk=
+  integrity sha512-+OUdGJlgjOBZDfxnDjYYG6zp487z0JGNQq3cYQYg5f5hKR+syHMsaztzGeml/4kGG55CSpKSpWTY+jYGgsHLgA==
   dependencies:
     isarray "1.0.0"
 
@@ -1303,7 +1303,7 @@ levn@^0.4.1:
 line-column@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/line-column/-/line-column-1.0.2.tgz#d25af2936b6f4849172b312e4792d1d987bc34a2"
-  integrity sha1-0lryk2tvSEkXKzEuR5LR2Ye8NKI=
+  integrity sha512-Ktrjk5noGYlHsVnYWh62FLVs4hTb8A3e+vucNZMgPeAOITdshMSgv4cCZQeRDjm7+goqmo6+liZwTXo+U3sVww==
   dependencies:
     isarray "^1.0.0"
     isobject "^2.0.0"
@@ -1508,10 +1508,10 @@ nth-check@^2.0.0:
   dependencies:
     boolbase "^1.0.0"
 
-ohm-js@^16.0.0:
-  version "16.3.4"
-  resolved "https://registry.yarnpkg.com/ohm-js/-/ohm-js-16.3.4.tgz#c0aef541785b9a70d4d52fd42e74c0405e84cc6f"
-  integrity sha512-Twk5k+an4HLKH/3QMiItq87svx+2aG6HVYa3jTs5D54GuKIYs2UQUF5NH/+y/pvVmocwWulrBd4VdrNVPQ2zJQ==
+ohm-js@^16.3.0:
+  version "16.4.0"
+  resolved "https://registry.yarnpkg.com/ohm-js/-/ohm-js-16.4.0.tgz#d0df8a2bcf32298e153b684a5630d4623e86a5de"
+  integrity sha512-u1QI5h2w29I4838+/m32rzqfNNH1Qej9L6O1MTZZMx7bVOu09orc/TO0HRVeYh5jStieZ3INszM7oqbCdx2x7A==
 
 once@^1.3.0:
   version "1.4.0"
