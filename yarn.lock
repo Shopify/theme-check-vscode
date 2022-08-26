@@ -43,10 +43,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@shopify/prettier-plugin-liquid@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@shopify/prettier-plugin-liquid/-/prettier-plugin-liquid-0.2.1.tgz#e4390a521131354aa5db512dbaf114784f947131"
-  integrity sha512-9UQnspQTx3gc8lN3fPQ57fv63x+6CJLmmQHq94DMoQ03MwiWT87hhnsYNzVDmpYR7fr0jMmf/CftRZAFL2Sogw==
+"@shopify/prettier-plugin-liquid@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@shopify/prettier-plugin-liquid/-/prettier-plugin-liquid-0.3.0.tgz#966099b9727728387b53876f0d84a544c1f026d6"
+  integrity sha512-NtQQldKptlwgwSisZDmRPuvLoZIQ1QOrnDxpWCJYpfZxSRXm2folNpQPziVz0pZnY+PaiJfUEDLj3lYTJYyE0g==
   dependencies:
     html-styles "^1.0.0"
     line-column "^1.0.2"
