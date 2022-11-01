@@ -1,4 +1,10 @@
 
+1.7.1 / 2022-11-01
+==================
+
+  * Fixes typo in config description
+  * Add troubleshooting doc
+
 1.7.0 / 2022-09-09
 ==================
 

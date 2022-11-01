@@ -19,7 +19,7 @@
   ],
   "preview": false,
   "icon": "images/shopify_glyph.png",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "homepage": "https://github.com/shopify/theme-check-vscode",
   "bugs": {
     "url": "https://github.com/shopify/theme-check-vscode/issues"
