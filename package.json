@@ -127,7 +127,7 @@
           "type": [
             "boolean"
           ],
-          "description": "When true, theme check runs on file open.",
+          "description": "When true, theme check runs on file save.",
           "default": true
         },
         "themeCheck.onlySingleFileChecks": {
