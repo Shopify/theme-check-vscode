@@ -1,4 +1,10 @@
 
+1.7.2 / 2022-11-22
+==================
+
+  * Upgrade prettier plugin version to 0.4.1
+  * Syntax highlighting update (stylesheet tag)
+
 1.7.1 / 2022-11-01
 ==================
 
