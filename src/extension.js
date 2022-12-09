@@ -107,19 +107,15 @@ async function restartServer() {
   await startServer();
 }
 
-let formattingProvider = null;
+let formattingProvider
 
 async function restartFormattingEditProvider() {
-  const formatterDevPreview = getConfig(
-    'shopifyLiquid.formatterDevPreview',
-  );
-
-  if (!formatterDevPreview && formattingProvider) {
+  if (formattingProvider) {
     formattingProvider.dispose();
     formattingProvider = null;
   }
 
-  if (formatterDevPreview && !formattingProvider) {
+  if (!formattingProvider) {
     formattingProvider =
       vscode.languages.registerDocumentFormattingEditProvider(
         LIQUID,
@@ -136,15 +132,8 @@ function onConfigChange(event) {
   const didChangeShopifyCLI = event.affectsConfiguration(
     'shopifyLiquid.shopifyCLIPath',
   );
-  const didChangeFormatterDevPreview = event.affectsConfiguration(
-    'shopifyLiquid.formatterDevPreview',
-  );
   if (didChangeThemeCheck || didChangeShopifyCLI) {
     restartServer();
-  }
-
-  if (didChangeFormatterDevPreview) {
-    restartFormattingEditProvider();
   }
 }
 
