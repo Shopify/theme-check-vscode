@@ -1,4 +1,10 @@
 
+1.8.0 / 2022-12-09
+==================
+
+  * Bump prettier-plugin-liquid to v1.0.0 :tada:
+  * Remove "shopifyLiquid.formatterDevPreview", it's no longer opt-in :)
+
 1.7.4 / 2022-11-29
 ==================
 
