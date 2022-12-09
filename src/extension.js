@@ -2,7 +2,7 @@ const promisify = require('util').promisify;
 const exec = promisify(require('child_process').exec);
 const vscode = require('vscode');
 const { LanguageClient } = require('vscode-languageclient');
-const LiquidFormatter = require('./formatter');
+const LiquidFormatter = require('./formatter').default;
 
 /**
  * @type vscode.DocumentFilter[]
