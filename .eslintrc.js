@@ -15,5 +15,8 @@ module.exports = {
     eqeqeq: 'warn',
     semi: 'off',
   },
+  env: {
+    'node': true,
+  },
   ignorePatterns: ['out', 'dist', '**/*.d.ts'],
 };

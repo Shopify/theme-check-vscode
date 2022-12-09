@@ -1,13 +1,24 @@
-const promisify = require('util').promisify;
-const exec = promisify(require('child_process').exec);
-const vscode = require('vscode');
-const { LanguageClient } = require('vscode-languageclient');
-const LiquidFormatter = require('./formatter').default;
+import { promisify } from 'util';
+import * as child_process from 'child_process';
 
-/**
- * @type vscode.DocumentFilter[]
- **/
-const LIQUID = [
+import {
+  commands,
+  Disposable,
+  DocumentFilter,
+  ExtensionContext,
+  languages,
+  window,
+  workspace,
+} from 'vscode';
+import {
+  LanguageClient,
+  LanguageClientOptions,
+  ServerOptions,
+} from 'vscode-languageclient/node';
+import LiquidFormatter from './formatter';
+const exec = promisify(child_process.exec);
+
+const LIQUID: DocumentFilter[] = [
   {
     language: 'liquid',
     scheme: 'file',
@@ -15,37 +26,32 @@ const LIQUID = [
   {
     language: 'liquid',
     scheme: 'untitled',
-  }
+  },
 ];
 
 class CommandNotFoundError extends Error {}
 
 const isWin = process.platform === 'win32';
-const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+const sleep = (ms: number) =>
+  new Promise((res) => setTimeout(res, ms));
 
-let client;
-let context;
+let client: LanguageClient | undefined;
+let context: { subscriptions: Disposable[] } | undefined;
 
-function getConfig(path) {
+function getConfig(path: string) {
   const [namespace, key] = path.split('.');
-  return vscode.workspace.getConfiguration(namespace).get(key);
+  return workspace.getConfiguration(namespace).get(key);
 }
 
-/**
- * @param {vscode.ExtensionContext} extensionContext
- */
-async function activate(extensionContext) {
+export async function activate(extensionContext: ExtensionContext) {
   context = extensionContext;
 
   context.subscriptions.push(
-    vscode.commands.registerCommand(
-      'shopifyLiquid.restart',
-      restartServer,
-    ),
+    commands.registerCommand('shopifyLiquid.restart', restartServer),
   );
   context.subscriptions.push(
-    vscode.commands.registerCommand('shopifyLiquid.runChecks', () =>
-      client.sendRequest('workspace/executeCommand', {
+    commands.registerCommand('shopifyLiquid.runChecks', () =>
+      client!.sendRequest('workspace/executeCommand', {
         command: 'runChecks',
       }),
     ),
@@ -53,23 +59,25 @@ async function activate(extensionContext) {
 
   restartFormattingEditProvider();
 
-  vscode.workspace.onDidChangeConfiguration(onConfigChange);
+  workspace.onDidChangeConfiguration(onConfigChange);
   await startServer();
 }
 
-function deactivate() {
+export function deactivate() {
   return stopServer();
 }
 
 async function startServer() {
   const serverOptions = await getServerOptions();
   console.info(
-    'shopify.theme-check-vscode: Server options %s',
+    'shopify.theme-check- Server options %s',
     JSON.stringify(serverOptions, null, 2),
   );
-  if (!serverOptions) return;
+  if (!serverOptions) {
+    return;
+  }
 
-  const clientOptions = {
+  const clientOptions: LanguageClientOptions = {
     documentSelector: [
       { scheme: 'file', language: 'liquid' },
       { scheme: 'file', language: 'plaintext' },
@@ -93,7 +101,9 @@ async function startServer() {
 
 async function stopServer() {
   try {
-    if (client) await Promise.race([client.stop(), sleep(1000)]);
+    if (client) {
+      await Promise.race([client.stop(), sleep(1000)]);
+    }
   } catch (e) {
     console.error(e);
   } finally {
@@ -103,11 +113,13 @@ async function stopServer() {
 }
 
 async function restartServer() {
-  if (client) await stopServer();
+  if (client) {
+    await stopServer();
+  }
   await startServer();
 }
 
-let formattingProvider
+let formattingProvider: Disposable | null;
 
 async function restartFormattingEditProvider() {
   if (formattingProvider) {
@@ -117,15 +129,17 @@ async function restartFormattingEditProvider() {
 
   if (!formattingProvider) {
     formattingProvider =
-      vscode.languages.registerDocumentFormattingEditProvider(
+      languages.registerDocumentFormattingEditProvider(
         LIQUID,
         new LiquidFormatter(),
       );
-    context.subscriptions.push(formattingProvider);
+    context!.subscriptions.push(formattingProvider);
   }
 }
 
-function onConfigChange(event) {
+function onConfigChange(event: {
+  affectsConfiguration: (arg0: string) => any;
+}) {
   const didChangeThemeCheck = event.affectsConfiguration(
     'shopifyLiquid.languageServerPath',
   );
@@ -138,42 +152,48 @@ function onConfigChange(event) {
 }
 
 let hasShownWarning = false;
-async function getServerOptions() {
+async function getServerOptions(): Promise<
+  ServerOptions | undefined
+> {
   const disableWarning = getConfig(
     'shopifyLiquid.disableWindowsWarning',
   );
   if (!disableWarning && isWin && !hasShownWarning) {
     hasShownWarning = true;
-    vscode.window.showWarningMessage(
+    window.showWarningMessage(
       'Shopify Liquid support on Windows is experimental. Please report any issue.',
     );
   }
   const themeCheckPath = getConfig(
     'shopifyLiquid.languageServerPath',
-  );
-  const shopifyCLIPath = getConfig('shopifyLiquid.shopifyCLIPath');
+  ) as string | undefined;
+  const shopifyCLIPath = getConfig('shopifyLiquid.shopifyCLIPath') as
+    | string
+    | undefined;
 
   try {
-    const executable =
+    const executable: ServerOptions | undefined =
       (shopifyCLIPath &&
         (await shopifyCLIExecutable(shopifyCLIPath))) ||
       (themeCheckPath &&
         (await themeCheckExecutable(themeCheckPath))) ||
       (await getShopifyCLIExecutable()) ||
       (await getThemeCheckExecutable());
-    if (!executable) throw new Error('No executable found');
+    if (!executable) {
+      throw new Error('No executable found');
+    }
     return executable;
   } catch (e) {
     if (e instanceof CommandNotFoundError) {
-      vscode.window.showErrorMessage(e.message);
+      window.showErrorMessage(e.message);
     } else {
       if (isWin) {
-        vscode.window.showWarningMessage(
+        window.showWarningMessage(
           `The 'theme-check-language-server' executable was not found on your $PATH. Was it installed? The path can also be changed via the "shopifyLiquid.languageServerPath" setting.`,
         );
       } else {
         console.error(e);
-        vscode.window.showWarningMessage(
+        window.showWarningMessage(
           `The 'shopify' executable was not found on your $PATH. Was it installed? The path can also be changed via the "shopifyLiquid.shopifyCLIPath" setting.`,
         );
       }
@@ -181,7 +201,7 @@ async function getServerOptions() {
   }
 }
 
-async function which(command) {
+async function which(command: unknown) {
   if (isWin) {
     const { stdout } = await exec(`where.exe ${command}`);
     const executables = stdout
@@ -195,7 +215,9 @@ async function which(command) {
   }
 }
 
-async function getShopifyCLIExecutable() {
+async function getShopifyCLIExecutable(): Promise<
+  ServerOptions | undefined
+> {
   try {
     const path = await which('shopify');
     return shopifyCLIExecutable(path);
@@ -204,7 +226,9 @@ async function getShopifyCLIExecutable() {
   }
 }
 
-async function getThemeCheckExecutable() {
+async function getThemeCheckExecutable(): Promise<
+  ServerOptions | undefined
+> {
   try {
     const path = await which('theme-check-language-server');
     return themeCheckExecutable(path);
@@ -213,22 +237,31 @@ async function getThemeCheckExecutable() {
   }
 }
 
-async function shopifyCLIExecutable(command) {
-  if (isWin) return;
+async function shopifyCLIExecutable(
+  command: string | boolean,
+): Promise<ServerOptions | undefined> {
+  if (isWin || typeof command !== 'string' || command === '') {
+    return;
+  }
   return {
     command,
     args: ['theme', 'language-server'],
   };
 }
 
-async function themeCheckExecutable(command) {
+async function themeCheckExecutable(
+  command: string | boolean,
+): Promise<ServerOptions | undefined> {
+  if (typeof command !== 'string' || command === '') {
+    return undefined;
+  }
   await commandExists(command);
   return {
     command,
   };
 }
 
-async function commandExists(command) {
+async function commandExists(command: string): Promise<void> {
   try {
     !isWin && (await exec(`[[ -f "${command}" ]]`));
   } catch (e) {
@@ -237,8 +270,3 @@ async function commandExists(command) {
     );
   }
 }
-
-module.exports = {
-  activate,
-  deactivate,
-};

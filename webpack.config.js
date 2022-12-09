@@ -8,7 +8,7 @@ const path = require('path');
 /** @type WebpackConfig */
 const config = {
   target: 'node',
-  entry: './src/extension.js',
+  entry: './src/extension.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'extension.js',
