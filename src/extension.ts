@@ -7,6 +7,7 @@ import {
   DocumentFilter,
   ExtensionContext,
   languages,
+  Uri,
   window,
   workspace,
 } from 'vscode';
@@ -57,9 +58,33 @@ export async function activate(extensionContext: ExtensionContext) {
     ),
   );
 
-  restartFormattingEditProvider();
+  const diagnosticTextDocumentVersion = new Map<Uri, number>();
+  const diagnosticCollection = languages.createDiagnosticCollection(
+    'prettier-plugin-liquid',
+  );
+  context.subscriptions.push(diagnosticCollection);
+
+  const formattingProvider =
+    languages.registerDocumentFormattingEditProvider(
+      LIQUID,
+      new LiquidFormatter(
+        diagnosticCollection,
+        diagnosticTextDocumentVersion,
+      ),
+    );
+  context.subscriptions.push(formattingProvider);
 
   workspace.onDidChangeConfiguration(onConfigChange);
+
+  // If you change the file, the prettier syntax error is no longer valid
+  workspace.onDidChangeTextDocument(({ document }) => {
+    const bufferVersionOfDiagnostic =
+      diagnosticTextDocumentVersion.get(document.uri);
+    if (bufferVersionOfDiagnostic !== document.version) {
+      diagnosticCollection.delete(document.uri);
+    }
+  });
+
   await startServer();
 }
 
@@ -117,24 +142,6 @@ async function restartServer() {
     await stopServer();
   }
   await startServer();
-}
-
-let formattingProvider: Disposable | null;
-
-async function restartFormattingEditProvider() {
-  if (formattingProvider) {
-    formattingProvider.dispose();
-    formattingProvider = null;
-  }
-
-  if (!formattingProvider) {
-    formattingProvider =
-      languages.registerDocumentFormattingEditProvider(
-        LIQUID,
-        new LiquidFormatter(),
-      );
-    context!.subscriptions.push(formattingProvider);
-  }
 }
 
 function onConfigChange(event: {

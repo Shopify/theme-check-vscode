@@ -30,12 +30,13 @@
   },
   "scripts": {
     "build": "yarn build:extension && yarn build:language-config && yarn build:syntax",
-    "build:extension": "webpack --mode production --devtool hidden-source-map",
+    "build:extension": "webpack --mode production",
     "build:language-config": "scripts/make-language-configuration",
     "build:syntax": "yarn --cwd ./syntaxes build",
-    "dev": "rimraf dist && webpack --mode development --watch",
+    "dev": "rimraf dist && yarn dev:watch",
     "dev:build": "webpack --mode development",
     "dev:syntax": "yarn --cwd ./syntaxes dev",
+    "dev:watch": "webpack --mode development --watch",
     "lint": "eslint src --ext ts",
     "package": "yarn build && vsce package",
     "postinstall": "yarn --cwd ./syntaxes install",
@@ -47,20 +48,20 @@
     "test": "mocha 'src/**/*.test.js'"
   },
   "engines": {
-    "vscode": "^1.43.0"
+    "vscode": "^1.74.0"
   },
   "dependencies": {
-    "@shopify/prettier-plugin-liquid": "^1.0.0",
+    "@shopify/prettier-plugin-liquid": "^1.0.2",
     "prettier": "^2.6.2",
     "vsce": "^1.87.0",
-    "vscode-languageclient": "^7.0.0"
+    "vscode-languageclient": "^8.0.0"
   },
   "devDependencies": {
     "@types/glob": "^8.0.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
     "@types/prettier": "^2.4.2",
-    "@types/vscode": "1.43.0",
+    "@types/vscode": "^1.74.0",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
     "@vscode/test-electron": "^2.2.0",
