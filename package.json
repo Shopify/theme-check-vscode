@@ -29,7 +29,8 @@
     "url": "https://github.com/shopify/theme-check-vscode.git"
   },
   "scripts": {
-    "build": "yarn build:extension && yarn build:language-config && yarn build:syntax",
+    "build": "yarn build:ci",
+    "build:ci": "yarn build:extension && yarn build:language-config && yarn build:syntax",
     "build:extension": "webpack --mode production",
     "build:language-config": "scripts/make-language-configuration",
     "build:syntax": "yarn --cwd ./syntaxes build",
@@ -37,16 +38,17 @@
     "dev:build": "webpack --mode development",
     "dev:syntax": "yarn --cwd ./syntaxes dev",
     "dev:watch": "webpack --mode development --watch",
-    "format": "prettier 'src/**/*.{ts,js}' --write",
+    "format": "prettier --write 'src/**/*.{ts,js}'",
+    "format:check": "prettier --check 'src/**/*.{js,ts}'",
     "lint": "eslint src --ext ts",
     "package": "yarn build && vsce package",
     "postinstall": "yarn --cwd ./syntaxes install",
     "prebuild": "yarn && rimraf dist language-configuration.json",
     "pretest": "yarn run test:build && yarn run dev:build && yarn run lint",
-    "type-check": "tsc --noEmit",
+    "test": "mocha 'src/**/*.test.js'",
     "test:build": "tsc -p . --outDir out",
     "test:watch": "tsc -p . -w --outDir out",
-    "test": "mocha 'src/**/*.test.js'"
+    "type-check": "tsc --noEmit"
   },
   "engines": {
     "vscode": "^1.74.0"
