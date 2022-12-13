@@ -27,7 +27,7 @@ Official VS Code extension for [Shopify Liquid](https://shopify.dev/docs/themes)
 
 ## Installation
 
-This VS Code extensions depends on the [Theme Check][tc] language server, which is bundled in the latest [Shopify CLI](https://shopify.dev/tools/cli).
+This VS Code extensions depends on the [Theme Check][tc] language server, which is bundled in the latest [Shopify CLI](https://shopify.dev/themes/tools/cli).
 
 To install the `shopify` CLI, follow these steps:
 
