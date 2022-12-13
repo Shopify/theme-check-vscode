@@ -1,8 +1,6 @@
 const { voidElements, openingLiquidTags } = require('./constants');
 
-const closingLiquidTags = openingLiquidTags.map(
-  (name) => `end${name}`,
-);
+const closingLiquidTags = openingLiquidTags.map((name) => `end${name}`);
 
 // https://regex101.com/r/G4OYnb/1
 function increaseIndentPattern() {

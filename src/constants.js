@@ -26,4 +26,4 @@ exports.openingLiquidTags = [
   'when',
   'for',
   'unless',
-]
+];
