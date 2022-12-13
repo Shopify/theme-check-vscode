@@ -37,6 +37,7 @@
     "dev:build": "webpack --mode development",
     "dev:syntax": "yarn --cwd ./syntaxes dev",
     "dev:watch": "webpack --mode development --watch",
+    "format": "prettier 'src/**/*.{ts,js}' --write",
     "lint": "eslint src --ext ts",
     "package": "yarn build && vsce package",
     "postinstall": "yarn --cwd ./syntaxes install",

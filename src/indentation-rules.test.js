@@ -3,14 +3,8 @@ const { voidElements, openingLiquidTags } = require('./constants');
 const indentationRules = require('./indentation-rules');
 
 describe('Module: indentationRules', () => {
-  const increase = new RegExp(
-    indentationRules.increaseIndentPattern,
-    'im',
-  );
-  const decrease = new RegExp(
-    indentationRules.decreaseIndentPattern,
-    'im',
-  );
+  const increase = new RegExp(indentationRules.increaseIndentPattern, 'im');
+  const decrease = new RegExp(indentationRules.decreaseIndentPattern, 'im');
 
   it('should match non-void elements', () => {
     expect('<html>').to.match(increase);
@@ -64,8 +58,8 @@ describe('Module: indentationRules', () => {
 
     expect('<img').to.match(increase);
     expect('<img').not.to.match(decrease);
-    expect('/>').not.to.match(increase)
-    expect('/>').to.match(decrease)
+    expect('/>').not.to.match(increase);
+    expect('/>').to.match(decrease);
   });
 
   it('should match liquid tag opens', () => {

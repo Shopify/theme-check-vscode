@@ -30,23 +30,17 @@ export default class LiquidFormatter {
       }
 
       return textEdits;
-    } catch (e: any) {
-      console.error(e);
-
-      // Present the LiquidHTMLParsingError as an error in the
-      // Problems tab
+    } catch (err: any) {
+      // Present the LiquidHTMLParsingError as an error in the Problems tab
       if (
-        !!e &&
-        'name' in e &&
-        'loc' in e &&
-        e.name === 'LiquidHTMLParsingError'
+        !!err &&
+        'name' in err &&
+        'loc' in err &&
+        err.name === 'LiquidHTMLParsingError'
       ) {
-        const err = e as LiquidHTMLASTParsingError;
-        const diagnostic = toDiagnostic(err);
+        const diagnostic = toDiagnostic(err as LiquidHTMLASTParsingError);
         if (diagnostic) {
-          this.diagnosticCollection.set(textDocument.uri, [
-            diagnostic,
-          ]);
+          this.diagnosticCollection.set(textDocument.uri, [diagnostic]);
           this.diagnosticTextDocumentVersion.set(
             textDocument.uri,
             textDocument.version,
@@ -59,12 +53,8 @@ export default class LiquidFormatter {
   }
 }
 
-async function toTextEdit(
-  textDocument: TextDocument,
-): Promise<TextEdit> {
-  const options = await prettier.resolveConfig(
-    textDocument.uri.fsPath,
-  );
+async function toTextEdit(textDocument: TextDocument): Promise<TextEdit> {
+  const options = await prettier.resolveConfig(textDocument.uri.fsPath);
   const text = textDocument.getText();
   const formatted = prettier.format(text, {
     ...options,
@@ -76,9 +66,7 @@ async function toTextEdit(
   return TextEdit.replace(new Range(start, end), formatted);
 }
 
-function toDiagnostic(
-  err: LiquidHTMLASTParsingError,
-): Diagnostic | undefined {
+function toDiagnostic(err: LiquidHTMLASTParsingError): Diagnostic | undefined {
   if (!err.loc) {
     return undefined;
   }

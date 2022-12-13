@@ -33,8 +33,7 @@ const LIQUID: DocumentFilter[] = [
 class CommandNotFoundError extends Error {}
 
 const isWin = process.platform === 'win32';
-const sleep = (ms: number) =>
-  new Promise((res) => setTimeout(res, ms));
+const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 let client: LanguageClient | undefined;
 let context: { subscriptions: Disposable[] } | undefined;
@@ -64,22 +63,19 @@ export async function activate(extensionContext: ExtensionContext) {
   );
   context.subscriptions.push(diagnosticCollection);
 
-  const formattingProvider =
-    languages.registerDocumentFormattingEditProvider(
-      LIQUID,
-      new LiquidFormatter(
-        diagnosticCollection,
-        diagnosticTextDocumentVersion,
-      ),
-    );
+  const formattingProvider = languages.registerDocumentFormattingEditProvider(
+    LIQUID,
+    new LiquidFormatter(diagnosticCollection, diagnosticTextDocumentVersion),
+  );
   context.subscriptions.push(formattingProvider);
 
   workspace.onDidChangeConfiguration(onConfigChange);
 
   // If you change the file, the prettier syntax error is no longer valid
   workspace.onDidChangeTextDocument(({ document }) => {
-    const bufferVersionOfDiagnostic =
-      diagnosticTextDocumentVersion.get(document.uri);
+    const bufferVersionOfDiagnostic = diagnosticTextDocumentVersion.get(
+      document.uri,
+    );
     if (bufferVersionOfDiagnostic !== document.version) {
       diagnosticCollection.delete(document.uri);
     }
@@ -95,7 +91,7 @@ export function deactivate() {
 async function startServer() {
   const serverOptions = await getServerOptions();
   console.info(
-    'shopify.theme-check- Server options %s',
+    'shopify.theme-check-vscode Server options %s',
     JSON.stringify(serverOptions, null, 2),
   );
   if (!serverOptions) {
@@ -159,31 +155,25 @@ function onConfigChange(event: {
 }
 
 let hasShownWarning = false;
-async function getServerOptions(): Promise<
-  ServerOptions | undefined
-> {
-  const disableWarning = getConfig(
-    'shopifyLiquid.disableWindowsWarning',
-  );
+async function getServerOptions(): Promise<ServerOptions | undefined> {
+  const disableWarning = getConfig('shopifyLiquid.disableWindowsWarning');
   if (!disableWarning && isWin && !hasShownWarning) {
     hasShownWarning = true;
     window.showWarningMessage(
       'Shopify Liquid support on Windows is experimental. Please report any issue.',
     );
   }
-  const themeCheckPath = getConfig(
-    'shopifyLiquid.languageServerPath',
-  ) as string | undefined;
+  const themeCheckPath = getConfig('shopifyLiquid.languageServerPath') as
+    | string
+    | undefined;
   const shopifyCLIPath = getConfig('shopifyLiquid.shopifyCLIPath') as
     | string
     | undefined;
 
   try {
     const executable: ServerOptions | undefined =
-      (shopifyCLIPath &&
-        (await shopifyCLIExecutable(shopifyCLIPath))) ||
-      (themeCheckPath &&
-        (await themeCheckExecutable(themeCheckPath))) ||
+      (shopifyCLIPath && (await shopifyCLIExecutable(shopifyCLIPath))) ||
+      (themeCheckPath && (await themeCheckExecutable(themeCheckPath))) ||
       (await getShopifyCLIExecutable()) ||
       (await getThemeCheckExecutable());
     if (!executable) {
@@ -208,7 +198,7 @@ async function getServerOptions(): Promise<
   }
 }
 
-async function which(command: unknown) {
+async function which(command: string) {
   if (isWin) {
     const { stdout } = await exec(`where.exe ${command}`);
     const executables = stdout
@@ -222,9 +212,7 @@ async function which(command: unknown) {
   }
 }
 
-async function getShopifyCLIExecutable(): Promise<
-  ServerOptions | undefined
-> {
+async function getShopifyCLIExecutable(): Promise<ServerOptions | undefined> {
   try {
     const path = await which('shopify');
     return shopifyCLIExecutable(path);
@@ -233,9 +221,7 @@ async function getShopifyCLIExecutable(): Promise<
   }
 }
 
-async function getThemeCheckExecutable(): Promise<
-  ServerOptions | undefined
-> {
+async function getThemeCheckExecutable(): Promise<ServerOptions | undefined> {
   try {
     const path = await which('theme-check-language-server');
     return themeCheckExecutable(path);
