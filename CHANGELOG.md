@@ -1,4 +1,12 @@
 
+1.9.0 / 2022-12-13
+==================
+
+  * Send diagnostics for LiquidPrettierPlugin parsing errors ([#106](https://github.com/shopify/theme-check-vscode/issues/106))
+  * Switch to TypeScript
+  * Upgrade syntaxes commit for node18 compat
+  * Add CI
+
 1.8.0 / 2022-12-09
 ==================
 
