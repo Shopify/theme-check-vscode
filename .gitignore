@@ -5,3 +5,4 @@ language-configuration.json
 theme-check-vscode*.vsix
 *.DS_Store
 .envrc
+out
