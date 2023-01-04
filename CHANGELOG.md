@@ -1,4 +1,9 @@
 
+1.9.1 / 2023-01-04
+==================
+
+  * Bump syntax highlighting to add support for sections tag
+
 1.9.0 / 2022-12-13
 ==================
 
