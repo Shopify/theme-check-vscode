@@ -102,10 +102,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@shopify/prettier-plugin-liquid@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@shopify/prettier-plugin-liquid/-/prettier-plugin-liquid-1.0.5.tgz#33acb6fa80bc7114d57712394516a7cfd5d264b5"
-  integrity sha512-iHJFMLI8Y5ScrBvaL8OoEgiqnmZQN2BBI+hs8GHJkYPnUwznEJK3gfhrLISKu4CJXsWF6qTnvtvGIJOory18cQ==
+"@shopify/prettier-plugin-liquid@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@shopify/prettier-plugin-liquid/-/prettier-plugin-liquid-1.0.6.tgz#f269150e48b211d41bc141ff2cffbcd0ca449ff3"
+  integrity sha512-Z4fo0H4jkmlRBRDxFbayiXDu4nWV2ZoUqdYKT7QFjIqMRM/xsBOd+GiLgZE6Nomdl8I0DF9Oyy0UCZZMn6QYXg==
   dependencies:
     html-styles "^1.0.0"
     line-column "^1.0.2"
