@@ -1,4 +1,9 @@
 
+1.9.7 / 2023-03-07
+==================
+
+  * Prioritize direct `theme-check` install over CLI install
+
 1.9.6 / 2023-02-17
 ==================
 
