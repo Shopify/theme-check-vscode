@@ -172,10 +172,10 @@ async function getServerOptions(): Promise<ServerOptions | undefined> {
 
   try {
     const executable: ServerOptions | undefined =
-      (shopifyCLIPath && (await shopifyCLIExecutable(shopifyCLIPath))) ||
       (themeCheckPath && (await themeCheckExecutable(themeCheckPath))) ||
-      (await getShopifyCLIExecutable()) ||
-      (await getThemeCheckExecutable());
+      (shopifyCLIPath && (await shopifyCLIExecutable(shopifyCLIPath))) ||
+      (await getThemeCheckExecutable()) ||
+      (await getShopifyCLIExecutable());
     if (!executable) {
       throw new Error('No executable found');
     }
