@@ -1,9 +1,9 @@
 import { promisify } from 'util';
 import * as child_process from 'child_process';
+import * as path from 'node:path';
 
 import {
   commands,
-  Disposable,
   DocumentFilter,
   ExtensionContext,
   languages,
@@ -15,6 +15,7 @@ import {
   LanguageClient,
   LanguageClientOptions,
   ServerOptions,
+  TransportKind,
 } from 'vscode-languageclient/node';
 import LiquidFormatter from './formatter';
 const exec = promisify(child_process.exec);
@@ -36,7 +37,7 @@ const isWin = process.platform === 'win32';
 const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 let client: LanguageClient | undefined;
-let context: { subscriptions: Disposable[] } | undefined;
+let context: ExtensionContext | undefined;
 
 function getConfig(path: string) {
   const [namespace, key] = path.split('.');
@@ -149,6 +150,9 @@ function onConfigChange(event: {
   const didChangeShopifyCLI = event.affectsConfiguration(
     'shopifyLiquid.shopifyCLIPath',
   );
+  const didChangeOnlineStoreCodeEditorMode = event.affectsConfiguration(
+    'shopifyLiquid.onlineStoreCodeEditorMode',
+  );
   if (didChangeThemeCheck || didChangeShopifyCLI) {
     restartServer();
   }
@@ -163,6 +167,27 @@ async function getServerOptions(): Promise<ServerOptions | undefined> {
       'Shopify Liquid support on Windows is experimental. Please report any issue.',
     );
   }
+
+  if (getConfig('shopifyLiquid.onlineStoreCodeEditorMode')) {
+    const serverModule = context!.asAbsolutePath(
+      path.join('dist', 'server.js'),
+    );
+    return {
+      run: {
+        module: serverModule,
+        transport: TransportKind.stdio,
+      },
+      debug: {
+        module: serverModule,
+        transport: TransportKind.stdio,
+        options: {
+          // --inspect=6009: runs the server in Node's Inspector mode so VS Code can attach to the server for debugging
+          execArgv: ['--nolazy', '--inspect=6009'],
+        },
+      },
+    };
+  }
+
   const themeCheckPath = getConfig('shopifyLiquid.languageServerPath') as
     | string
     | undefined;
