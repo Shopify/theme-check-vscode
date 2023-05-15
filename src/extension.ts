@@ -153,7 +153,7 @@ function onConfigChange(event: {
   const didChangeOnlineStoreCodeEditorMode = event.affectsConfiguration(
     'shopifyLiquid.onlineStoreCodeEditorMode',
   );
-  if (didChangeThemeCheck || didChangeShopifyCLI) {
+  if (didChangeThemeCheck || didChangeShopifyCLI || didChangeOnlineStoreCodeEditorMode) {
     restartServer();
   }
 }
