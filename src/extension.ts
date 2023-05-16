@@ -256,7 +256,7 @@ async function themeCheckExecutable(
 
 async function commandExists(command: string): Promise<void> {
   try {
-    !isWin && (await exec(`[[ -f "${command}" ]]`));
+    !isWin && (await exec(`[ -f "${command}" ]`));
   } catch (e) {
     throw new CommandNotFoundError(
       `${command} not found, are you sure this is the correct path?`,
