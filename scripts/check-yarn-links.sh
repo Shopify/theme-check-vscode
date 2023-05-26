@@ -1,8 +1,11 @@
 #!/bin/bash
 
-LINKED_MODULES=$(yarn list --pattern "link:")
+has_yarn_links() {
+  ( ls -l node_modules ; ls -l node_modules/@* ) | grep ^l
+}
 
-if [[ $LINKED_MODULES == *"link:"* ]]; then
+
+if has_yarn_links ; then
   echo "Error: Found yarn link dependencies. Please remove them before releasing."
   exit 1
 else
