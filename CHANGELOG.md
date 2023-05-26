@@ -1,4 +1,12 @@
 
+1.10.0 / 2023-05-26
+===================
+
+  * Add posix sh command existence compliance ([#126](https://github.com/shopify/theme-check-vscode/issues/126))
+  * Bump to prettier-plugin-liquid v1.1.0 ([#129](https://github.com/shopify/theme-check-vscode/issues/129))
+
+    Learn more in its [CHANGELOG](https://github.com/Shopify/prettier-plugin-liquid/blob/v1.1.0/CHANGELOG.md#110--2023-05-26).
+
 1.9.7 / 2023-03-07
 ==================
 
