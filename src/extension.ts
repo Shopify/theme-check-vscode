@@ -51,11 +51,14 @@ export async function activate(extensionContext: ExtensionContext) {
     commands.registerCommand('shopifyLiquid.restart', restartServer),
   );
   context.subscriptions.push(
-    commands.registerCommand('shopifyLiquid.runChecks', () =>
+    commands.registerCommand('shopifyLiquid.runChecks', () => {
+      const isRubyLanguageServer = !getConfig(
+        'shopifyLiquid.onlineStoreCodeEditorMode',
+      );
       client!.sendRequest('workspace/executeCommand', {
-        command: 'runChecks',
-      }),
-    ),
+        command: isRubyLanguageServer ? 'runChecks' : 'themeCheck/runChecks',
+      });
+    }),
   );
 
   const diagnosticTextDocumentVersion = new Map<Uri, number>();
@@ -153,7 +156,11 @@ function onConfigChange(event: {
   const didChangeOnlineStoreCodeEditorMode = event.affectsConfiguration(
     'shopifyLiquid.onlineStoreCodeEditorMode',
   );
-  if (didChangeThemeCheck || didChangeShopifyCLI || didChangeOnlineStoreCodeEditorMode) {
+  if (
+    didChangeThemeCheck ||
+    didChangeShopifyCLI ||
+    didChangeOnlineStoreCodeEditorMode
+  ) {
     restartServer();
   }
 }
