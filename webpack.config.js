@@ -5,6 +5,9 @@
 
 const path = require('path');
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const CopyPlugin = require('copy-webpack-plugin');
+
 /** @type WebpackConfig */
 const config = {
   target: 'node',
@@ -26,6 +29,14 @@ const config = {
     // support reading TypeScript and JavaScript files, 📖 -> https://github.com/TypeStrong/ts-loader
     extensions: ['.ts', '.js']
   },
+  plugins: [
+    new CopyPlugin({
+      patterns: [{
+        from: 'node_modules/@shopify/liquid-language-server-node/dist/theme-liquid-docs/*.json',
+        to: 'theme-liquid-docs/[name][ext]',
+      }],
+    }),
+  ],
   module: {
     rules: [
       {
