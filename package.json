@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "@shopify/prettier-plugin-liquid": "^1.1.0",
-    "prettier": "^2.6.2",
+    "prettier": "^2.8.7",
     "vsce": "^1.87.0",
     "vscode-languageclient": "^8.0.0"
   },
@@ -148,6 +148,12 @@
           ],
           "description": "When true, disables whole theme checks. Can improve performance. (theme-check v1.10.0+)",
           "default": false
+        },
+        "shopifyLiquid.useProjectPrettierConfig": {
+          "type": [
+            "boolean"
+          ],
+          "description": "When true, use prettier config file in project root dir."
         }
       }
     },
