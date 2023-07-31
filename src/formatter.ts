@@ -80,6 +80,7 @@ async function toTextEdit(textDocument: TextDocument): Promise<TextEdit> {
       }
       return item;
     });
+    prettierOptions.parser = 'liquid-html';
   } else {
     prettierOptions = {
       ...options,
