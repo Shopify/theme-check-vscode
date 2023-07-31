@@ -6,6 +6,7 @@ import {
   Diagnostic,
   Range,
   Position,
+  workspace,
 } from 'vscode';
 import * as prettier from 'prettier';
 import * as LiquidPrettierPlugin from '@shopify/prettier-plugin-liquid/standalone';
@@ -54,13 +55,48 @@ export default class LiquidFormatter {
 }
 
 async function toTextEdit(textDocument: TextDocument): Promise<TextEdit> {
+  const useProjectPrettierConfig = workspace
+    .getConfiguration('shopifyLiquid')
+    .get('useProjectPrettierConfig');
+
   const options = await prettier.resolveConfig(textDocument.uri.fsPath);
   const text = textDocument.getText();
-  const formatted = prettier.format(text, {
-    ...options,
-    parser: 'liquid-html',
-    plugins: [LiquidPrettierPlugin],
-  });
+
+  let prettierOptions: prettier.Options = {};
+  if (useProjectPrettierConfig) {
+    prettierOptions = options || {};
+
+    // if use prettier auto plugin
+    prettierOptions.plugins = prettierOptions.plugins?.map((item) => {
+      if (typeof item === 'string') {
+        const workspaceFolder = workspace.getWorkspaceFolder(textDocument.uri);
+        if (workspaceFolder) {
+          const moduleAbsoluteUri = Uri.joinPath(
+            workspaceFolder?.uri,
+            `node_modules/${item}`,
+          );
+          return moduleAbsoluteUri.path;
+        }
+      }
+      return item;
+    });
+    prettierOptions.parser = 'liquid-html';
+  } else {
+    prettierOptions = {
+      ...options,
+      parser: 'liquid-html',
+      plugins: [LiquidPrettierPlugin],
+    };
+  }
+
+  let formatted = text;
+
+  try {
+    formatted = prettier.format(text, prettierOptions);
+  } catch (e) {
+    console.error('formatter error', e);
+  }
+
   const start = textDocument.positionAt(0);
   const end = textDocument.positionAt(text.length);
   return TextEdit.replace(new Range(start, end), formatted);
