@@ -1,3 +1,7 @@
+> [!WARNING]  
+> This project has been absorbed by and moved to [Shopify/theme-tools](https://github.com/Shopify/theme-tools).
+
+
 <h1 align="center" style="position: relative;" >
   <br>
     <img src="https://github.com/Shopify/theme-check-vscode/blob/main/images/shopify_glyph.png?raw=true" alt="logo" width="150" height="160">
